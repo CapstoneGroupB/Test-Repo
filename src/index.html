@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <header>
@@ -12,24 +13,27 @@
     <main>
       <div class="input-container">
         <label for="city-input">Enter City:</label>
-        <input type="text" id="city-input" placeholder="e.g. London">
+        <input type="text" id="city-input" list="city-list" placeholder="e.g. London">
+        <datalist id="city-list">
+        </datalist>
         <button id="get-weather-btn">Get Weather</button>
       </div>
-      <div class="weather-info-container">
+      <div class="weather-info-container" hidden>
         <h2 id="city-name"></h2>
         <img id="weather-icon" alt="Weather Icon">
         <div class="weather-details">
           <p id="condition"></p>
           <p id="details"></p>
+          <p id="temperature"></p>
           <p>Sunrise: <span id="sunrise"></span></p>
           <p>Sunset: <span id="sunset"></span></p>
           <p>Wind Speed: <span id="wind-speed"></span></p>
           <p>Pressure: <span id="pressure"></span></p>
+          <p>Recommended Clothes: <span id="recommended-clothes"></span></p>
+          <ul id="forecast-list"></ul>
         </div>
       </div>
-      <div id="forecast-container"></div>
     </main>
-    <ul id="forecast-list"></ul>
     <script src="weather.js"></script>
   </body>
 </html>
