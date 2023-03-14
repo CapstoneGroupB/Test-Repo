@@ -12,7 +12,7 @@ const details = document.getElementById("details");
 const sunrise = document.getElementById("sunrise");
 const sunset = document.getElementById("sunset");
 const windSpeed = document.getElementById("wind-speed");
-const pressure = document.getElementById("pressure");
+// const pressure = document.getElementById("pressure");
 const temperatureElement = document.getElementById("temperature");
 
 // Add an event listener to the input field to detect when the user enters text
@@ -87,7 +87,7 @@ function getWeather() {
             sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
             sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
             windSpeed.textContent = data.wind.speed;
-            pressure.textContent = data.main.pressure;
+            // pressure.textContent = data.main.pressure;
 
             // recommend clothes based on weather and temperature
             const temperature = data.main.temp;
