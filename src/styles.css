@@ -12,3 +12,56 @@
     align-items: center;
     text-align: center;
   }
+
+  #clothes-images img {
+    width: 150px;
+    height: 150px;
+    margin-right: 350px;
+    margin-top: 150px;
+  }
+
+  #tops {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  #bottoms {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 150px;
+  }
+
+  #umbrella-image {
+    position:absolute;
+    top:0;
+    right:0;
+    width: 150px;
+    height: 150px;
+    margin-right: 200px;
+    margin-top: 150px;
+  }
+
+  body {
+    background: linear-gradient(to bottom right, #5B92E5, #FFFFFF, #FBB829);
+    background-attachment: fixed;
+    font-weight: bold;
+    color:#2a42c9;
+  }
+
+  header {
+    font-size: 36px;
+    text-shadow: 1px 1px 1px #ccc;
+  }
+
+  button {
+    font-weight: bold;
+    color:#2a42c9;
+    background-color: #FBB829;
+  }
+
+  
+  
+
+  
