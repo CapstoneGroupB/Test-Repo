@@ -17,6 +17,13 @@
         <datalist id="city-list">
         </datalist>
         <button id="get-weather-btn">Get Weather</button>
+        <!-- checkbox to show/not show - tops/bottoms -->
+        <div class="checkbox-container" onchange="showHideClothes()">
+          <input type="checkbox" id="tops-checkbox" checked>
+          <label for="tops-checkbox">Tops</label>
+          <input type="checkbox" id="bottoms-checkbox" checked>
+          <label for="bottoms-checkbox">Bottoms</label>
+        </div>
       </div>
       <div class="weather-info-container" hidden>
         <h2 id="city-name"></h2>
