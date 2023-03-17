@@ -103,22 +103,25 @@ function getWeather() {
             });
             
             if (temperature > 20) {
-              recommendedClothes = "shorts and a t-shirt";
-              
+              recommendedClothes = "shorts, t-shirt, and sandals.";
               document.getElementById("shorts-image").style.display = "inline-block";
               document.getElementById("shirt-image").style.display = "inline-block";
+              document.getElementById("sandals-image").style.display = "inline-block";
             } else if (temperature > 10) {
-              recommendedClothes = "a light jacket and pants";
+              recommendedClothes = "a light jacket, pants, and sneakers.";
               document.getElementById("light-jacket-image").style.display = "inline-block";
               document.getElementById("pants-image").style.display = "inline-block";
+              document.getElementById("shoes-image").style.display = "inline-block";
             } else {
-              recommendedClothes = "a heavy jacket and pants";
+              recommendedClothes = "a heavy jacket, pants, and boots.";
               document.getElementById("jacket-image").style.display = "inline-block";
               document.getElementById("pants-image").style.display = "inline-block";
+              document.getElementById("heavy-boots-image").style.display = "inline-block";
             }
             
             if (weatherCondition === "Rain") {
-              recommendedClothes += " with a raincoat or an umbrella";
+              recommendedClothes += " with rainboots and a raincoat or an umbrella";
+              document.getElementById("rainboots-image").style.display = "inline-block";
               document.getElementById("umbrella-image").style.display = "inline-block";
             }
             
