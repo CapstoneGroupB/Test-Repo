@@ -53,6 +53,16 @@
     margin-top: 150px;
   }
 
+  #rainboots-image {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top:0;
+    right:0;
+    margin-top: 460px;
+    margin-right: 375px;
+  }
+
   body {
     background: linear-gradient(to bottom right, #5B92E5, #FFFFFF, #FBB829);
     background-attachment: fixed;
@@ -70,5 +80,3 @@
     color:#2a42c9;
     background-color: #FBB829;
   }
-
-

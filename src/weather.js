@@ -1,7 +1,7 @@
 const API_KEY = "67fe3285486a7f123b0fb08665aa9d51";
 const WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather";
 const FORECAST_URL = "https://api.openweathermap.org/data/2.5/onecall";
-
+let clothingVisible = true;
 const getWeatherBtn = document.getElementById("get-weather-btn");
 const cityListElement = document.getElementById('city-list');
 const cityInput = document.getElementById("city-input");
@@ -69,6 +69,23 @@ function showWeatherInfo() {
   }
 }
 
+function hideClothing() {
+  
+  if(clothingVisible) {
+    const clothesImages = document.getElementById("clothes-images").querySelectorAll("img");
+    for (let i = 0; i < clothesImages.length; i++) {
+      clothesImages[i].style.display = "none";
+    }
+    document.getElementById("rainboots-image").style.display = "none";
+    document.getElementById("umbrella-image").style.display = "none";
+    clothingVisible = false;
+    return;
+  }
+
+  getWeather();
+  clothingVisible = true;
+}
+
 // Listen for changes to the city name input
 CityName1.addEventListener('DOMSubtreeModified', showWeatherInfo);
 
@@ -120,7 +137,8 @@ function getWeather() {
             }
             
             if (weatherCondition === "Rain") {
-              recommendedClothes += " with rainboots and a raincoat or an umbrella";
+              recommendedClothes += " with rainboots and an umbrella";
+              document.getElementById("footwear").style.display = "none";
               document.getElementById("rainboots-image").style.display = "inline-block";
               document.getElementById("umbrella-image").style.display = "inline-block";
             }
