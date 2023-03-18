@@ -118,6 +118,10 @@ function getWeather() {
             clothesImages.forEach(image => {
               image.style.display = "none";
             });
+
+            document.getElementById("footwear").style.display = "block";
+            document.getElementById("rainboots-image").style.display = "none";
+            document.getElementById("umbrella-image").style.display = "none";
             
             if (temperature > 20) {
               recommendedClothes = "shorts, t-shirt, and sandals.";
