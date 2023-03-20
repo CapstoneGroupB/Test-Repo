@@ -170,19 +170,3 @@ function getWeather() {
     });
 }
 //functions for the user to add a city to their favorites
-
-//function that displays or hides the tops/bottom clothes based on the checkbox value
-function showHideClothes() {
-  // Get the checkbox
-  const checkBoxTops = document.getElementById("tops-checkbox");
-  const checkBoxBottoms = document.getElementById("bottoms-checkbox");
-  // Get the output div
-  const tops = document.getElementById("tops");
-  const bottoms = document.getElementById("bottoms");
-  // If the checkbox is checked, display the output text
-  if (checkBox.checked == true) {
-    clothes.style.visibility = "visible";
-  } else {
-    clothes.style.visibility = "hidden";
-  }
-}
