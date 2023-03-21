@@ -121,7 +121,7 @@ function getWeather() {
       document.getElementById("footwear").style.display = "block";
       document.getElementById("rainboots-image").style.display = "none";
       document.getElementById("umbrella-image").style.display = "none";
-      
+  
       if (temperature > 20) {
         recommendedClothes = "shorts, t-shirt, and sandals.";
         document.getElementById("shorts-image").style.display = "inline-block";
@@ -204,35 +204,5 @@ function getWeather() {
         // append the forecast item to the container element
         forecastContainer.appendChild(forecastItem);
       }
-      // forecastList.innerHTML = ""; // clear previous forecast items
-      // for (let i = 0; i < 7; i++) {
-      //   const forecast = forecastData.daily[ i ];
-      //   // create forecast item element
-      //   const forecastItem = document.createElement("li");
-      //   forecastItem.classList.add("forecast-item");
-      //   // create and add icon element
-      //   const icon = document.createElement("img");
-      //   icon.classList.add("forecast-icon");
-      //   try {
-      //     // code that may throw an error
-      //     icon.src = `https://api.openweathermap.org/img/w/${ forecast.weather[ 0 ].icon }.png`;
-      //   } catch (err) {
-      //     // code that handles the error
-      //     console.log("This mf piece of mf shit: " + err);
-      //   }
-      //   forecastItem.appendChild(icon);
-      //   // create and add day of week element
-      //   const dayOfWeek = document.createElement("div");
-      //   dayOfWeek.classList.add("forecast-day-of-week");
-      //   dayOfWeek.textContent = new Date(forecast.dt * 1000).toLocaleDateString(undefined, { weekday: 'short' });
-      //   forecastItem.appendChild(dayOfWeek);
-
-      //   // create and add temperature range element
-      //   const tempRange = document.createElement("div");
-      //   tempRange.classList.add("forecast-temp-range");
-      //   tempRange.textContent = `${ forecast.temp.min.toFixed(1) }°C / ${ forecast.temp.max.toFixed(1) }°C`;
-      //   forecastItem.appendChild(tempRange);
-      // }
-
     })
 }
