@@ -1,7 +1,6 @@
 const API_KEY = "67fe3285486a7f123b0fb08665aa9d51";
 const WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather";
 const FORECAST_URL = "https://api.openweathermap.org/data/2.5/onecall";
-
 let clothingVisible = true;
 const getWeatherBtn = document.getElementById("get-weather-btn");
 const cityListElement = document.getElementById('city-list');
@@ -187,12 +186,6 @@ function getWeather() {
         tempRange.textContent = `${ forecast.temp.min.toFixed(1) }°C / ${ forecast.temp.max.toFixed(1) }°C`;
         forecastItem.appendChild(tempRange);
 
-        // add forecast item to the forecast list
-        forecastList.appendChild(forecastItem);
       }
     })
-    .catch(error => {
-      console.log(error);
-      alert("An error occurred while fetching weather information.");
-    });
 }
