@@ -1,7 +1,7 @@
 const API_KEY = "67fe3285486a7f123b0fb08665aa9d51";
 const WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather";
 const FORECAST_URL = "https://api.openweathermap.org/data/2.5/onecall";
-
+let clothingVisible = true;
 const getWeatherBtn = document.getElementById("get-weather-btn");
 const cityListElement = document.getElementById('city-list');
 const cityInput = document.getElementById("city-input");
@@ -69,104 +69,27 @@ function showWeatherInfo() {
   }
 }
 
+function hideClothing() {
+  
+  if(clothingVisible) {
+    const clothesImages = document.getElementById("clothes-images").querySelectorAll("img");
+    for (let i = 0; i < clothesImages.length; i++) {
+      clothesImages[i].style.display = "none";
+    }
+    document.getElementById("rainboots-image").style.display = "none";
+    document.getElementById("umbrella-image").style.display = "none";
+    clothingVisible = false;
+    return;
+  }
+
+  getWeather();
+  clothingVisible = true;
+}
+
 // Listen for changes to the city name input
 CityName1.addEventListener('DOMSubtreeModified', showWeatherInfo);
 
 function getWeather() {
-  // construct the URL for fetching weather information
-  const weatherUrl = `${ WEATHER_URL }?q=${ cityInput.value }&appid=${ API_KEY }&units=metric`;
 
-  // fetch weather information
-  fetch(weatherUrl)
-    .then(response => response.json())
-    .then(data => {
-      cityName.textContent = data.name;
-      weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
-      condition.textContent = data.weather[ 0 ].main;
-      details.textContent = data.weather[ 0 ].description;
-      sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
-      sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
-      windSpeed.textContent = data.wind.speed;
-      // pressure.textContent = data.main.pressure;
-
-      // recommend clothes based on weather and temperature
-      const temperature = data.main.temp;
-      temperatureElement.textContent = `${ temperature.toFixed(1) }°C`;
-      const weatherCondition = data.weather[ 0 ].main;
-
-      let recommendedClothes = "";
-
-      // Select all images within the clothes-images div and hide them
-      const clothesImages = document.querySelectorAll("#clothes-images img");
-      clothesImages.forEach(image => {
-        image.style.display = "none";
-      });
-
-      if (temperature > 20) {
-        recommendedClothes = "shorts and a t-shirt";
-
-        document.getElementById("shorts-image").style.display = "inline-block";
-        document.getElementById("shirt-image").style.display = "inline-block";
-      } else if (temperature > 10) {
-        recommendedClothes = "a light jacket and pants";
-        document.getElementById("light-jacket-image").style.display = "inline-block";
-        document.getElementById("pants-image").style.display = "inline-block";
-      } else {
-        recommendedClothes = "a heavy jacket and pants";
-        document.getElementById("jacket-image").style.display = "inline-block";
-        document.getElementById("pants-image").style.display = "inline-block";
-      }
-
-      if (weatherCondition === "Rain") {
-        recommendedClothes += " with a raincoat or an umbrella";
-        document.getElementById("umbrella-image").style.display = "inline-block";
-      }
-
-      const recommendedClothesElement = document.getElementById("recommended-clothes");
-      recommendedClothesElement.textContent = recommendedClothes;
-
-      // get forecast information
-      const lat = data.coord.lat;
-      const lon = data.coord.lon;
-      const forecastUrl = `${ FORECAST_URL }?lat=${ lat }&lon=${ lon }&exclude=current,minutely,hourly,alerts&appid=${ API_KEY }&units=metric`;
-      return fetch(forecastUrl);
-    })
-    .then(response => response.json())
-    .then(forecastData => {
-      const forecastList = document.getElementById("forecast-list");
-      forecastList.innerHTML = ""; // clear previous forecast items
-      for (let i = 0; i < 7; i++) {
-        const forecast = forecastData.daily[ i ];
-
-        // create forecast item element
-        const forecastItem = document.createElement("li");
-        forecastItem.classList.add("forecast-item");
-
-        // create and add icon element
-        const icon = document.createElement("img");
-        icon.classList.add("forecast-icon");
-        icon.src = `https://api.openweathermap.org/img/w/${ forecast.weather[ 0 ].icon }.png`;
-        forecastItem.appendChild(icon);
-
-        // create and add day of week element
-        const dayOfWeek = document.createElement("div");
-        dayOfWeek.classList.add("forecast-day-of-week");
-        dayOfWeek.textContent = new Date(forecast.dt * 1000).toLocaleDateString(undefined, { weekday: 'short' });
-        forecastItem.appendChild(dayOfWeek);
-
-        // create and add temperature range element
-        const tempRange = document.createElement("div");
-        tempRange.classList.add("forecast-temp-range");
-        tempRange.textContent = `${ forecast.temp.min.toFixed(1) }°C / ${ forecast.temp.max.toFixed(1) }°C`;
-        forecastItem.appendChild(tempRange);
-
-        // add forecast item to the forecast list
-        forecastList.appendChild(forecastItem);
-      }
-    })
-    .catch(error => {
-      console.log(error);
-      alert("An error occurred while fetching weather information.");
-    });
 }
 //functions for the user to add a city to their favorites

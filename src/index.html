@@ -29,6 +29,7 @@
           <p>Sunrise: <span id="sunrise"></span></p>
           <p>Sunset: <span id="sunset"></span></p>
           <p>Wind Speed: <span id="wind-speed"></span></p>
+          <button onclick="hideClothing()">Hide recommended-clothes</button>
           <p>Recommended Clothes: <span id="recommended-clothes"></span></p>
           <div id="clothes-images">
             <div id="tops">
@@ -42,17 +43,17 @@
               <img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants" hidden>
               <img id="skirt-image" src="../Images/skirtNoColor.png" alt="Skirt" hidden>
             </div>
-          </div>
-          <div class="col-md-1">
-          <div class="forecast-container">
-            <ul id="forecast-list"></ul>
-          </div>
+            <div id="footwear">
+              <img id="shoes-image" src="../Images/shoesColor.png" alt="Shoes" hidden>
+              <img id="sandals-image" src="../Images/sandals.png" alt="Sandals" hidden>
+              <img id="heavy-boots-image" src="../Images/heavy-boots.png" alt="Boots" hidden>
+            </div>
           </div>
       </div>
       </div>
       
     </main>
     <script src="weather.js"></script>
-    <img id="umbrella-image" src="../Images/umbrella.png" alt="Umbrella" hidden>
+
   </body>
 </html>
