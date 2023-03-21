@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather App</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
   <header>
     <h1>Weather Wardrobe </h1>
@@ -20,6 +20,8 @@
       <button id="get-weather-btn">Get Weather</button>
     </div>
     <div class="weather-info-container" hidden>
+      <br>
+      <button type="button" onclick="hideClothing()">Show/Hide recommended clothes</button>
       <h2 id="city-name"></h2>
       <img id="weather-icon" alt="Weather Icon">
       <div class="weather-details">
@@ -29,8 +31,6 @@
         <p>Sunrise: <span id="sunrise"></span></p>
         <p>Sunset: <span id="sunset"></span></p>
         <p>Wind Speed: <span id="wind-speed"></span></p>
-        <button onclick="hideClothing()">Show/Hide recommended clothes</button>
-
         <p>Recommended Clothes: <span id="recommended-clothes"></span></p>
         <div id="clothes-images">
           <div id="tops">
@@ -43,23 +43,22 @@
             <img id="shorts-image" src="../Images/shortsNoColor.png" alt="Shorts" hidden>
             <img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants" hidden>
             <img id="skirt-image" src="../Images/skirtNoColor.png" alt="Skirt" hidden>
-          </div> 
+          </div>
           <div id="footwear">
             <img id="shoes-image" src="../Images/shoesColor.png" alt="Shoes" hidden>
             <img id="sandals-image" src="../Images/sandals.png" alt="Sandals" hidden>
             <img id="rainboots-image" src="../Images/rain-boots.png" alt="Boots" hidden>
             <img id="heavy-boots-image" src="../Images/heavy-boots.png" alt="Boots" hidden>
           </div>
-           </div>
-           <div class="col-md-1">
-            <div class="forecast-container">
-              <ul id="forecast-list"></ul>
-            </div>
-          </div>
-
+          <img id="umbrella-image" src="../Images/umbrella.png" alt="Umbrella" hidden>
+        </div>
+      </div>
+      <div id="forecast-container">
+        <ul id="forecast-list"></ul>
+      </div>
   </main>
+
   <script src="weather.js"></script>
-  <img id="umbrella-image" src="../Images/umbrella.png" alt="Umbrella" hidden>
 </body>
 
 </html>

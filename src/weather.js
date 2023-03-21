@@ -1,7 +1,7 @@
 const API_KEY = "67fe3285486a7f123b0fb08665aa9d51";
 const WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather";
 const FORECAST_URL = "https://api.openweathermap.org/data/2.5/onecall";
-let clothingVisible = true;
+
 const getWeatherBtn = document.getElementById("get-weather-btn");
 const cityListElement = document.getElementById('city-list');
 const cityInput = document.getElementById("city-input");
@@ -12,8 +12,10 @@ const details = document.getElementById("details");
 const sunrise = document.getElementById("sunrise");
 const sunset = document.getElementById("sunset");
 const windSpeed = document.getElementById("wind-speed");
-// const pressure = document.getElementById("pressure");
+const forecastList = document.getElementById("forecast-list");
 const temperatureElement = document.getElementById("temperature");
+
+let clothingVisible = true;
 
 // Add an event listener to the input field to detect when the user enters text
 cityInput.addEventListener("input", function () {
@@ -104,7 +106,6 @@ function getWeather() {
       sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
       sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
       windSpeed.textContent = data.wind.speed;
-      // pressure.textContent = data.main.pressure;
 
       // recommend clothes based on weather and temperature
       const temperature = data.main.temp;
@@ -112,7 +113,6 @@ function getWeather() {
       const weatherCondition = data.weather[ 0 ].main;
 
       let recommendedClothes = "";
-
       // Select all images within the clothes-images div and hide them
       const clothesImages = document.querySelectorAll("#clothes-images img");
       clothesImages.forEach(image => {
@@ -124,21 +124,23 @@ function getWeather() {
       
       if (temperature > 20) {
         recommendedClothes = "shorts, t-shirt, and sandals.";
-
         document.getElementById("shorts-image").style.display = "inline-block";
         document.getElementById("shirt-image").style.display = "inline-block";
         document.getElementById("sandals-image").style.display = "inline-block";
         document.getElementById("sandals-image").style.display = "inline-block";
+
       } else if (temperature > 10) {
         recommendedClothes = "a light jackett, pants, and sneakers";
         document.getElementById("light-jacket-image").style.display = "inline-block";
         document.getElementById("pants-image").style.display = "inline-block";
         document.getElementById("shoes-image").style.display = "inline-block";
+
       } else {
         recommendedClothes = "a heavy jacket, pants, and boots.";
         document.getElementById("jacket-image").style.display = "inline-block";
         document.getElementById("pants-image").style.display = "inline-block";
         document.getElementById("heavy-boots-image").style.display = "inline-block";
+
       }
 
       if (weatherCondition === "Rain") {
@@ -146,6 +148,7 @@ function getWeather() {
         document.getElementById("footwear").style.display = "none";
         document.getElementById("rainboots-image").style.display = "inline-block";
         document.getElementById("umbrella-image").style.display = "inline-block";
+
       }
 
       const recommendedClothesElement = document.getElementById("recommended-clothes");
@@ -157,35 +160,79 @@ function getWeather() {
       const forecastUrl = `${ FORECAST_URL }?lat=${ lat }&lon=${ lon }&exclude=current,minutely,hourly,alerts&appid=${ API_KEY }&units=metric`;
       return fetch(forecastUrl);
     })
+
     .then(response => response.json())
     .then(forecastData => {
-      const forecastList = document.getElementById("forecast-list");
-      forecastList.innerHTML = ""; // clear previous forecast items
+
+      const forecastContainer = document.getElementById("forecast-container");
+
+      // clear previous forecast items
+      forecastContainer.innerHTML = "";
+      
       for (let i = 0; i < 7; i++) {
-        const forecast = forecastData.daily[ i ];
-
+        const forecast = forecastData.daily[i];
+      
         // create forecast item element
-        const forecastItem = document.createElement("li");
+        const forecastItem = document.createElement("div");
         forecastItem.classList.add("forecast-item");
-
+      
         // create and add icon element
         const icon = document.createElement("img");
         icon.classList.add("forecast-icon");
-        icon.src = `https://api.openweathermap.org/img/w/${ forecast.weather[ 0 ].icon }.png`;
+        try {
+          // code that may throw an error
+          icon.src = `https://api.openweathermap.org/img/w/${forecast.weather[0].icon}.png`;
+        } catch (err) {
+          // code that handles the error
+          console.log("This mf piece of mf shit: " + err);
+        } 
+      
         forecastItem.appendChild(icon);
-
+      
         // create and add day of week element
         const dayOfWeek = document.createElement("div");
         dayOfWeek.classList.add("forecast-day-of-week");
         dayOfWeek.textContent = new Date(forecast.dt * 1000).toLocaleDateString(undefined, { weekday: 'short' });
         forecastItem.appendChild(dayOfWeek);
-
+      
         // create and add temperature range element
         const tempRange = document.createElement("div");
         tempRange.classList.add("forecast-temp-range");
-        tempRange.textContent = `${ forecast.temp.min.toFixed(1) }°C / ${ forecast.temp.max.toFixed(1) }°C`;
+        tempRange.textContent = `${forecast.temp.min.toFixed(1)}°C / ${forecast.temp.max.toFixed(1)}°C`;
         forecastItem.appendChild(tempRange);
-
+      
+        // append the forecast item to the container element
+        forecastContainer.appendChild(forecastItem);
       }
+      // forecastList.innerHTML = ""; // clear previous forecast items
+      // for (let i = 0; i < 7; i++) {
+      //   const forecast = forecastData.daily[ i ];
+      //   // create forecast item element
+      //   const forecastItem = document.createElement("li");
+      //   forecastItem.classList.add("forecast-item");
+      //   // create and add icon element
+      //   const icon = document.createElement("img");
+      //   icon.classList.add("forecast-icon");
+      //   try {
+      //     // code that may throw an error
+      //     icon.src = `https://api.openweathermap.org/img/w/${ forecast.weather[ 0 ].icon }.png`;
+      //   } catch (err) {
+      //     // code that handles the error
+      //     console.log("This mf piece of mf shit: " + err);
+      //   }
+      //   forecastItem.appendChild(icon);
+      //   // create and add day of week element
+      //   const dayOfWeek = document.createElement("div");
+      //   dayOfWeek.classList.add("forecast-day-of-week");
+      //   dayOfWeek.textContent = new Date(forecast.dt * 1000).toLocaleDateString(undefined, { weekday: 'short' });
+      //   forecastItem.appendChild(dayOfWeek);
+
+      //   // create and add temperature range element
+      //   const tempRange = document.createElement("div");
+      //   tempRange.classList.add("forecast-temp-range");
+      //   tempRange.textContent = `${ forecast.temp.min.toFixed(1) }°C / ${ forecast.temp.max.toFixed(1) }°C`;
+      //   forecastItem.appendChild(tempRange);
+      // }
+
     })
 }
