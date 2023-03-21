@@ -2,6 +2,7 @@ const API_KEY = "67fe3285486a7f123b0fb08665aa9d51";
 const WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather";
 const FORECAST_URL = "https://api.openweathermap.org/data/2.5/onecall";
 
+let clothingVisible = true;
 const getWeatherBtn = document.getElementById("get-weather-btn");
 const cityListElement = document.getElementById('city-list');
 const cityInput = document.getElementById("city-input");
@@ -69,6 +70,23 @@ function showWeatherInfo() {
   }
 }
 
+function hideClothing() {
+
+  if (clothingVisible) {
+    const clothesImages = document.getElementById("clothes-images").querySelectorAll("img");
+    for (let i = 0; i < clothesImages.length; i++) {
+      clothesImages[ i ].style.display = "none";
+    }
+    document.getElementById("rainboots-image").style.display = "none";
+    document.getElementById("umbrella-image").style.display = "none";
+    clothingVisible = false;
+    return;
+  }
+
+  getWeather();
+  clothingVisible = true;
+}
+
 // Listen for changes to the city name input
 CityName1.addEventListener('DOMSubtreeModified', showWeatherInfo);
 
@@ -101,24 +119,33 @@ function getWeather() {
       clothesImages.forEach(image => {
         image.style.display = "none";
       });
-
+      document.getElementById("footwear").style.display = "block";
+      document.getElementById("rainboots-image").style.display = "none";
+      document.getElementById("umbrella-image").style.display = "none";
+      
       if (temperature > 20) {
-        recommendedClothes = "shorts and a t-shirt";
+        recommendedClothes = "shorts, t-shirt, and sandals.";
 
         document.getElementById("shorts-image").style.display = "inline-block";
         document.getElementById("shirt-image").style.display = "inline-block";
+        document.getElementById("sandals-image").style.display = "inline-block";
+        document.getElementById("sandals-image").style.display = "inline-block";
       } else if (temperature > 10) {
-        recommendedClothes = "a light jacket and pants";
+        recommendedClothes = "a light jackett, pants, and sneakers";
         document.getElementById("light-jacket-image").style.display = "inline-block";
         document.getElementById("pants-image").style.display = "inline-block";
+        document.getElementById("shoes-image").style.display = "inline-block";
       } else {
-        recommendedClothes = "a heavy jacket and pants";
+        recommendedClothes = "a heavy jacket, pants, and boots.";
         document.getElementById("jacket-image").style.display = "inline-block";
         document.getElementById("pants-image").style.display = "inline-block";
+        document.getElementById("heavy-boots-image").style.display = "inline-block";
       }
 
       if (weatherCondition === "Rain") {
-        recommendedClothes += " with a raincoat or an umbrella";
+        recommendedClothes += " with rainboots and an umbrella";
+        document.getElementById("footwear").style.display = "none";
+        document.getElementById("rainboots-image").style.display = "inline-block";
         document.getElementById("umbrella-image").style.display = "inline-block";
       }
 
@@ -169,4 +196,3 @@ function getWeather() {
       alert("An error occurred while fetching weather information.");
     });
 }
-//functions for the user to add a city to their favorites

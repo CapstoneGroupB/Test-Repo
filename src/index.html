@@ -1,58 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <header>
-      <h1>Weather Wardrobe </h1>
-    </header>
-    <main>
-      <div class="input-container">
-        <label for="city-input">Enter City:</label>
-        <input type="text" id="city-input" list="city-list" placeholder="e.g. London">
-        <datalist id="city-list">
-        </datalist>
-        <button id="get-weather-btn">Get Weather</button>
-        
-      </div>
-      <div class="weather-info-container" hidden>
-        <h2 id="city-name"></h2>
-        <img id="weather-icon" alt="Weather Icon">
-        <div class="weather-details">
-          <p id="condition"></p>
-          <p id="details"></p>
-          <p id="temperature"></p>
-          <p>Sunrise: <span id="sunrise"></span></p>
-          <p>Sunset: <span id="sunset"></span></p>
-          <p>Wind Speed: <span id="wind-speed"></span></p>
-          <p>Recommended Clothes: <span id="recommended-clothes"></span></p>
-          <div id="clothes-images">
-            <div id="tops">
-              <img id="shirt-image" src="../Images/shirtNoColor.png" alt="Shirt" hidden>
-              <img id="jacket-image" src="../Images/jacketRedPuffer.png" alt="Jacket" hidden>
-              <img id="tank-top-image" src="../Images/tank-topNoColor.png" alt="Tank Top" hidden>
-              <img id="light-jacket-image" src="../Images/hoodieBlue (1).png" alt="Hoodie" hidden>
-            </div>  
-            <div id="bottoms">
-              <img id="shorts-image" src="../Images/shortsNoColor.png" alt="Shorts" hidden>
-              <img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants" hidden>
-              <img id="skirt-image" src="../Images/skirtNoColor.png" alt="Skirt" hidden>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <header>
+    <h1>Weather Wardrobe </h1>
+  </header>
+  <main>
+    <div class="input-container">
+      <label for="city-input">Enter City:</label>
+      <input type="text" id="city-input" list="city-list" placeholder="e.g. London">
+      <datalist id="city-list">
+      </datalist>
+      <button id="get-weather-btn">Get Weather</button>
+    </div>
+    <div class="weather-info-container" hidden>
+      <h2 id="city-name"></h2>
+      <img id="weather-icon" alt="Weather Icon">
+      <div class="weather-details">
+        <p id="condition"></p>
+        <p id="details"></p>
+        <p id="temperature"></p>
+        <p>Sunrise: <span id="sunrise"></span></p>
+        <p>Sunset: <span id="sunset"></span></p>
+        <p>Wind Speed: <span id="wind-speed"></span></p>
+        <button onclick="hideClothing()">Hide recommended-clothes</button>
+
+        <p>Recommended Clothes: <span id="recommended-clothes"></span></p>
+        <div id="clothes-images">
+          <div id="tops">
+            <img id="shirt-image" src="../Images/shirtNoColor.png" alt="Shirt" hidden>
+            <img id="jacket-image" src="../Images/jacketRedPuffer.png" alt="Jacket" hidden>
+            <img id="tank-top-image" src="../Images/tank-topNoColor.png" alt="Tank Top" hidden>
+            <img id="light-jacket-image" src="../Images/hoodieBlue (1).png" alt="Hoodie" hidden>
+          </div>
+          <div id="bottoms">
+            <img id="shorts-image" src="../Images/shortsNoColor.png" alt="Shorts" hidden>
+            <img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants" hidden>
+            <img id="skirt-image" src="../Images/skirtNoColor.png" alt="Skirt" hidden>
+          </div> 
+          <div id="footwear">
+            <img id="shoes-image" src="../Images/shoesColor.png" alt="Shoes" hidden>
+            <img id="sandals-image" src="../Images/sandals.png" alt="Sandals" hidden>
+            <img id="rainboots-image" src="../Images/rain-boots.png" alt="Boots" hidden>
+            <img id="heavy-boots-image" src="../Images/heavy-boots.png" alt="Boots" hidden>
+          </div>
+           </div>
+           <div class="col-md-1">
+            <div class="forecast-container">
+              <ul id="forecast-list"></ul>
             </div>
           </div>
-          <div class="col-md-1">
-          <div class="forecast-container">
-            <ul id="forecast-list"></ul>
-          </div>
-          </div>
-      </div>
-      </div>
-      
-    </main>
-    <script src="weather.js"></script>
-    <img id="umbrella-image" src="../Images/umbrella.png" alt="Umbrella" hidden>
-  </body>
+
+  </main>
+  <script src="weather.js"></script>
+  <img id="umbrella-image" src="../Images/umbrella.png" alt="Umbrella" hidden>
+</body>
+
 </html>
