@@ -15,7 +15,7 @@ const windSpeed = document.getElementById("wind-speed");
 const forecastList = document.getElementById("forecast-list");
 const temperatureElement = document.getElementById("temperature");
 const clothingcontainer = document.getElementById("clothing-container");
-
+let dailyDivContainer;
 let clothingVisible = true;
 let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 const MAX_ITEMS = 10;
@@ -124,57 +124,7 @@ function getWeather() {
       temperatureElement.textContent = `${ temperature.toFixed(1) }°C`;
       const weatherCondition = data.weather[ 0 ].main;
 
-      let recommendedClothes = "";
-      // Select all images within the clothes-images div and hide them
-      const topsElement = document.getElementById("tops");
-      const bottomsElement = document.getElementById("bottoms");
-      const footwearElement = document.getElementById("footwear");
-
-      document.getElementById("umbrella-image").style.display = "none";
-
-      if (temperature > 20) {
-        recommendedClothes = "shorts, t-shirt, and sandals.";
-
-        topsElement.innerHTML = `<img id="shirt-image" src="../Images/shirtNoColor.png" alt="Shirt" style="z-index: 1">`;
-
-        bottomsElement.innerHTML = `<img id="shorts-image" src="../Images/shortsNoColor.png" alt="Shorts" style="z-index: 1">`;
-
-        footwearElement.innerHTML = `<img id="sandals-image" src="../Images/sandals.png" alt="Sandals" style="z-index: 1">`;
-
-      } else if (temperature > 10) {
-        recommendedClothes = "a light jacket, pants, and sneakers";
-
-        topsElement.innerHTML = `<img id="light-jacket-image" src="../Images/hoodieBlue (1).png" alt="Hoodie" style="z-index: 1">`;
-
-        bottomsElement.innerHTML = `<img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants" style="z-index: 1">`;
-
-        footwearElement.innerHTML = `<img id="shoes-image" src="../Images/shoesColor.png" alt="Shoes" style="z-index: 1">`;
-
-      } else {
-        recommendedClothes = "a heavy jacket, pants, and boots.";
-
-        topsElement.innerHTML = `<img id="jacket-image" src="../Images/jacketRedPuffer.png" alt="Jacket" style="z-index: 1">`;
-
-        bottomsElement.innerHTML = `<img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants" style="z-index: 1">`;
-
-        footwearElement.innerHTML = `<img id="heavy-boots-image" src="../Images/heavy-boots.png" alt="Boots" style="z-index: 1">`;
-      }
-
-        if (weatherCondition === "Rain") {
-          recommendedClothes += " with rainboots and an umbrella";
-
-          topsElement.innerHTML = `<img id="jacket-image" src="../Images/jacketRedPuffer.png" alt="Jacket" style="z-index: 1">`;
-
-          bottomsElement.innerHTML = `<img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants" style="z-index: 1">`;
-
-          footwearElement.innerHTML = `<img id="rainboots-image" src="../Images/rain-boots.png" alt="Boots" style="z-index: 1">`;
-
-          document.getElementById("umbrella-image").style.display = "inline-block";
-
-        }
-
-        const recommendedClothesElement = document.getElementById("recommended-clothes");
-        recommendedClothesElement.textContent = recommendedClothes;
+      showClothes(temperature, weatherCondition);
 
         // get forecast information
         const lat = data.coord.lat;
@@ -208,7 +158,14 @@ function getWeather() {
           // code that handles the error
           console.log(err);
         }
-
+        //create and add a button to display small clothing icons
+        const button = document.createElement("button");
+        button.classList.add("forecast-button");
+        button.textContent = "Show clothes";
+        button.addEventListener("click", function () {
+          showClothes(forecast.temp.day, forecast.weather[ 0 ].main);
+        });
+        
         forecastItem.appendChild(icon);
 
         // create and add day of week element
@@ -228,6 +185,62 @@ function getWeather() {
       }
     })
 }
+
+
+
+function showClothes(temperature, weatherCondition){
+  let recommendedClothes = "";
+  // Select all images within the clothes-images div
+  const topsElement = document.getElementById("tops");
+  const bottomsElement = document.getElementById("bottoms");
+  const footwearElement = document.getElementById("footwear");
+  const accessoriesElement = document.getElementById("accessories");
+
+  if (temperature > 20) {
+    recommendedClothes = "shorts, t-shirt, and sandals.";
+
+    topsElement.innerHTML = `<img id="shirt-image" src="../Images/shirtNoColor.png" alt="Shirt" style="z-index: 1">`;
+
+    bottomsElement.innerHTML = `<img id="shorts-image" src="../Images/shortsNoColor.png" alt="Shorts" style="z-index: 1">`;
+
+    footwearElement.innerHTML = `<img id="sandals-image" src="../Images/sandals.png" alt="Sandals" style="z-index: 1">`;
+
+  } else if (temperature > 10) {
+    recommendedClothes = "a light jacket, pants, and sneakers";
+
+    topsElement.innerHTML = `<img id="light-jacket-image" src="../Images/hoodieBlue (1).png" alt="Hoodie" style="z-index: 1">`;
+
+    bottomsElement.innerHTML = `<img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants" style="z-index: 1">`;
+
+    footwearElement.innerHTML = `<img id="shoes-image" src="../Images/shoesColor.png" alt="Shoes" style="z-index: 1">`;
+
+  } else {
+    recommendedClothes = "a heavy jacket, pants, and boots.";
+
+    topsElement.innerHTML = `<img id="jacket-image" src="../Images/jacketRedPuffer.png" alt="Jacket" style="z-index: 1">`;
+
+    bottomsElement.innerHTML = `<img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants" style="z-index: 1">`;
+
+    footwearElement.innerHTML = `<img id="heavy-boots-image" src="../Images/heavy-boots.png" alt="Boots" style="z-index: 1">`;
+  }
+
+    if (weatherCondition === "Rain") {
+      recommendedClothes += " with rainboots and an umbrella";
+
+      topsElement.innerHTML = `<img id="jacket-image" src="../Images/jacketRedPuffer.png" alt="Jacket" style="z-index: 1">`;
+
+      bottomsElement.innerHTML = `<img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants" style="z-index: 1">`;
+
+      footwearElement.innerHTML = `<img id="rainboots-image" src="../Images/rain-boots.png" alt="Boots" style="z-index: 1">`;
+
+      accessoriesElement.innerHTML = `<img id="umbrella-image" src="../Images/umbrella.png" alt="Umbrella" style="z-index: 1>`;
+
+    }
+
+    const recommendedClothesElement = document.getElementById("recommended-clothes");
+    recommendedClothesElement.textContent = recommendedClothes;
+}
+
 
 function hideSearchHistoryDropdown() {
   list.style.display = "none";

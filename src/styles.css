@@ -23,6 +23,7 @@
 
 #clothes-images {
   float         : right;
+  margin-right: 30%;
   /* display       : flex; */
   /* Set the display property to flex */
   flex-direction: column;
@@ -50,43 +51,15 @@
   margin-right: 100px;
 }
 
+
 #clothes-images img {
   width : 75%;
   height: auto;
 }
 
-/* 
-  #tops {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-
-  #bottoms {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 150px;
-  }
-
-  #footwear img{
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    top:0;
-    right:0;
-     margin-top: 460px;
-    /*margin-right: 375px; }*/
-
-
-#umbrella-image {
-  position    : absolute;
-  top         : 0;
-  right       : 0;
-  width       : 150px;
-  height      : 150px;
-  margin-right: 200px;
-  margin-top  : 150px;
+#umbrella-image img {
+  width : 10%;
+  height: auto;
 }
 
 body {
