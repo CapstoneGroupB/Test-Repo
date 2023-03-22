@@ -17,7 +17,8 @@ const temperatureElement = document.getElementById("temperature");
 const clothingcontainer = document.getElementById("clothing-container");
 
 let clothingVisible = true;
-
+let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+const MAX_ITEMS = 10;
 // Add an event listener to the input field to detect when the user enters text
 cityInput.addEventListener("input", function () {
   const city = cityInput.value.trim(); // Remove any leading/trailing whitespace
@@ -101,6 +102,16 @@ function getWeather() {
     .then(response => response.json())
     .then(data => {
       cityName.textContent = data.name;
+
+      //add cityName to searchHistory
+      if (!searchHistory.includes(cityName.textContent) && cityInput.value !== "") { searchHistory.push(cityName.textContent); }
+      //limit search items to 10 
+      if (searchHistory.length > MAX_ITEMS) {
+        searchHistory = searchHistory.slice(-MAX_ITEMS);
+      }
+      //store search items in localStorage for data persistence
+      localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+
       weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
       condition.textContent = data.weather[ 0 ].main;
       details.textContent = data.weather[ 0 ].description;
@@ -195,7 +206,7 @@ function getWeather() {
           icon.src = `https://api.openweathermap.org/img/w/${ forecast.weather[ 0 ].icon }.png`;
         } catch (err) {
           // code that handles the error
-          console.log("This mf piece of mf shit: " + err);
+          console.log(err);
         }
 
         forecastItem.appendChild(icon);
@@ -217,3 +228,32 @@ function getWeather() {
       }
     })
 }
+
+function hideSearchHistoryDropdown() {
+  list.style.display = "none";
+}
+function showSearchHistoryDropdown() {
+  list.style.display = "block";
+}
+function populateSearchHistoryDropdown() {
+  list.innerHTML = "";
+  searchHistory.forEach((searchedItem) => {
+    let a = document.createElement("a");
+    let br = document.createElement("br");
+    a.innerHTML = searchedItem;
+    a.classList.add("list-item")
+    a.onclick = () => { cityInput.value = a.innerHTML; list.innerHTML = ""; }
+    list.appendChild(a);
+    list.appendChild(br);
+  });
+}
+
+cityInput.onfocus = () => {
+  populateSearchHistoryDropdown();
+  showSearchHistoryDropdown();
+};
+
+cityInput.onblur = () => {
+  setTimeout(hideSearchHistoryDropdown, 200);
+};
+
