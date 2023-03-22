@@ -14,6 +14,21 @@
     text-align: center;
   }
 
+  #clothes-images img{
+  z-index: 1;
+  }
+  #tops {
+    z-index: 1;
+  }
+  #bottoms {
+    z-index: 1;
+  }
+  #footwear img{
+    z-index: 1;
+  }
+  button {
+    z-index: 3;
+  }
   #clothes-images img {
     width: 150px;
     height: 150px;
