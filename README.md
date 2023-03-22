@@ -1,2 +1,3 @@
-# 2nd-Sample
- 
+# INFT3000 Capstone Project
+# Weather Wardrobe
+
