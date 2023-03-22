@@ -7,6 +7,7 @@
   <title>Weather App</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <header>
     <h1>Weather Wardrobe </h1>
@@ -24,7 +25,16 @@
       <button type="button" onclick="hideClothing()">Show/Hide recommended clothes</button>
       <h2 id="city-name"></h2>
       <img id="weather-icon" alt="Weather Icon">
+
       <div class="weather-details">
+        <div id="clothes-images">
+          <div id="clothes-vertical">
+            <div id="tops"></div>
+            <div id="bottoms"></div>
+            <div id="footwear"></div>
+            <img id="umbrella-image" src="../Images/umbrella.png" alt="Umbrella" hidden>
+          </div>
+        </div>
         <p id="condition"></p>
         <p id="details"></p>
         <p id="temperature"></p>
@@ -32,12 +42,7 @@
         <p>Sunset: <span id="sunset"></span></p>
         <p>Wind Speed: <span id="wind-speed"></span></p>
         <p>Recommended Clothes: <span id="recommended-clothes"></span></p>
-        <div id="clothes-images">
-          <div id="tops"></div>
-          <div id="bottoms"></div>
-          <div id="footwear"></div>
-          <img id="umbrella-image" src="../Images/umbrella.png" alt="Umbrella" hidden>
-        </div>        
+
       </div>
       <div id="forecast-container">
         <ul id="forecast-list"></ul>

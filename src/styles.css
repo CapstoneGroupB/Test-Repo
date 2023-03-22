@@ -1,41 +1,61 @@
 #forecast-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 0 auto;
-  }
-  
-  .forecast-item {
-    width: calc(100% / 7 - 10px);
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
+  display        : flex;
+  flex-wrap      : wrap;
+  justify-content: space-between;
+  margin         : 0 auto;
+}
 
-  #clothes-images img{
-  z-index: 1;
-  }
-  #tops {
-    z-index: 1;
-  }
-  #bottoms {
-    z-index: 1;
-  }
-  #footwear img{
-    z-index: 1;
-  }
-  button {
-    z-index: 3;
-  }
-  #clothes-images img {
-    width: 150px;
-    height: 150px;
-    margin-right: 350px;
-    margin-top: 150px;
-  }
+.forecast-item {
+  width         : calc(100% / 7 - 10px);
+  margin-bottom : 20px;
+  display       : flex;
+  flex-direction: column;
+  align-items   : center;
+  text-align    : center;
+}
 
+#clothes-vertical {
+  display       : flex;
+  flex-direction: column;
+  align-items   : center;
+  text-align    : center;
+}
+
+#clothes-images {
+  float         : right;
+  /* display       : flex; */
+  /* Set the display property to flex */
+  flex-direction: column;
+  /* Set the direction of the main axis to vertical */
+}
+
+.top {
+  order: 1;
+}
+
+.bottom {
+  order: 2;
+}
+
+.footwear {
+  order: 3;
+}
+
+#clothes-images>div {
+  display     : inline-block;
+  width       : 100px;
+  /* set the width of the container div */
+  height      : 100px;
+  /* set the height of the container div */
+  margin-right: 100px;
+}
+
+#clothes-images img {
+  width : 75%;
+  height: auto;
+}
+
+/* 
   #tops {
     position: absolute;
     top: 0;
@@ -55,44 +75,34 @@
     height: 100px;
     top:0;
     right:0;
-    margin-top: 460px;
-    margin-right: 375px;
-  }
+     margin-top: 460px;
+    /*margin-right: 375px; }*/
 
-  #umbrella-image {
-    position:absolute;
-    top:0;
-    right:0;
-    width: 150px;
-    height: 150px;
-    margin-right: 200px;
-    margin-top: 150px;
-  }
 
-  #rainboots-image {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    top:0;
-    right:0;
-    margin-top: 460px;
-    margin-right: 375px;
-  }
-  
-  body {
-    background: linear-gradient(to bottom right, #5B92E5, #FFFFFF, #FBB829);
-    background-attachment: fixed;
-    font-weight: bold;
-    color:#2a42c9;
-  }
+#umbrella-image {
+  position    : absolute;
+  top         : 0;
+  right       : 0;
+  width       : 150px;
+  height      : 150px;
+  margin-right: 200px;
+  margin-top  : 150px;
+}
 
-  header {
-    font-size: 36px;
-    text-shadow: 1px 1px 1px #ccc;
-  }
+body {
+  background           : linear-gradient(to bottom right, #5B92E5, #FFFFFF, #FBB829);
+  background-attachment: fixed;
+  font-weight          : bold;
+  color                : #2a42c9;
+}
 
-  button {
-    font-weight: bold;
-    color:#2a42c9;
-    background-color: #FBB829;
-  }
+header {
+  font-size  : 36px;
+  text-shadow: 1px 1px 1px #ccc;
+}
+
+button {
+  font-weight     : bold;
+  color           : #2a42c9;
+  background-color: #FBB829;
+}

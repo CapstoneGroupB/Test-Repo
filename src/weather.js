@@ -14,6 +14,7 @@ const sunset = document.getElementById("sunset");
 const windSpeed = document.getElementById("wind-speed");
 const forecastList = document.getElementById("forecast-list");
 const temperatureElement = document.getElementById("temperature");
+const clothingcontainer = document.getElementById("clothing-container");
 
 let clothingVisible = true;
 
@@ -123,41 +124,40 @@ function getWeather() {
       if (temperature > 20) {
         recommendedClothes = "shorts, t-shirt, and sandals.";
 
-        topsElement.innerHTML = `    <img id="shirt-image" src="../Images/shirtNoColor.png" alt="Shirt">  `;
+        topsElement.innerHTML = `<img id="shirt-image" src="../Images/shirtNoColor.png" alt="Shirt" style="z-index: 1">`;
 
-        bottomsElement.innerHTML = `    <img id="shorts-image" src="../Images/shortsNoColor.png" alt="Shorts">  `;
+        bottomsElement.innerHTML = `<img id="shorts-image" src="../Images/shortsNoColor.png" alt="Shorts" style="z-index: 1">`;
 
-        footwearElement.innerHTML = `<img id="sandals-image" src="../Images/sandals.png" alt="Sandals">`;
+        footwearElement.innerHTML = `<img id="sandals-image" src="../Images/sandals.png" alt="Sandals" style="z-index: 1">`;
 
       } else if (temperature > 10) {
         recommendedClothes = "a light jacket, pants, and sneakers";
 
-        topsElement.innerHTML = `<img id="light-jacket-image" src="../Images/hoodieBlue (1).png" alt="Hoodie">`;
+        topsElement.innerHTML = `<img id="light-jacket-image" src="../Images/hoodieBlue (1).png" alt="Hoodie" style="z-index: 1">`;
 
-        bottomsElement.innerHTML = `    <img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants">  `;
+        bottomsElement.innerHTML = `<img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants" style="z-index: 1">`;
 
-        footwearElement.innerHTML = `    <img id="shoes-image" src="../Images/shoesColor.png" alt="Shoes">  `;
+        footwearElement.innerHTML = `<img id="shoes-image" src="../Images/shoesColor.png" alt="Shoes" style="z-index: 1">`;
 
       } else {
         recommendedClothes = "a heavy jacket, pants, and boots.";
 
-        topsElement.innerHTML = `<img id="jacket-image" src="../Images/jacketRedPuffer.png" alt="Jacket">`;
+        topsElement.innerHTML = `<img id="jacket-image" src="../Images/jacketRedPuffer.png" alt="Jacket" style="z-index: 1">`;
 
-        bottomsElement.innerHTML = `<img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants">`;
+        bottomsElement.innerHTML = `<img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants" style="z-index: 1">`;
 
-        footwearElement.innerHTML = `<img id="heavy-boots-image" src="../Images/heavy-boots.png" alt="Boots">`;
+        footwearElement.innerHTML = `<img id="heavy-boots-image" src="../Images/heavy-boots.png" alt="Boots" style="z-index: 1">`;
       }
-          // recommendedClothes = "a heavy jacket, pants, and boots.";
-          // document.getElementById("jacket-image").style.display = "inline-block";
-          // document.getElementById("pants-image").style.display = "inline-block";
-          // document.getElementById("heavy-boots-image").style.display = "inline-block";
-
-
 
         if (weatherCondition === "Rain") {
           recommendedClothes += " with rainboots and an umbrella";
-          document.getElementById("footwear").style.display = "none";
-          document.getElementById("rainboots-image").style.display = "inline-block";
+
+          topsElement.innerHTML = `<img id="jacket-image" src="../Images/jacketRedPuffer.png" alt="Jacket" style="z-index: 1">`;
+
+          bottomsElement.innerHTML = `<img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants" style="z-index: 1">`;
+
+          footwearElement.innerHTML = `<img id="rainboots-image" src="../Images/rain-boots.png" alt="Boots" style="z-index: 1">`;
+
           document.getElementById("umbrella-image").style.display = "inline-block";
 
         }
@@ -174,7 +174,7 @@ function getWeather() {
 
     .then(response => response.json())
     .then(forecastData => {
-
+      
       const forecastContainer = document.getElementById("forecast-container");
 
       // clear previous forecast items
