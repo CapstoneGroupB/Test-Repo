@@ -5,8 +5,10 @@ The Website 'Weather Wardrobe' utilizes a weather API to gather current weather 
 
 # Goals
 Weather Integration -	a customizable weather App is a useful tool  ✔️ <br>
-Clothing database -	A clothing tracking system is a useful tool ❌ <br>
 Outfit Suggestion	- A customizable outfit suggestion software is a very valuable asset to the right person  ✔️ <br>
+Clothing database -	A clothing tracking system is a useful tool ❌ <br>
 Adding to a clothing database -	In addition to a clothing database the ability to add to it to track your clothes will be very useful ❌ <br>
 
-# scope 
+# Scope 
+WPF application ❌<br><br>
+We decided to pivot to a website using JavaScript instead of a WPF application as we were having issues making progress with the WPF application.
