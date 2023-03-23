@@ -13,4 +13,6 @@ Adding to a clothing database -	In addition to a clothing database the ability t
 # Scope 
 
 WPF application ❌<br><br>
+Display Weather ✔️ <br>
+Display Clothing ✔️ <br>
 We decided to pivot to a website using JavaScript instead of a WPF application as we were having issues making progress with the WPF application.
