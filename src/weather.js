@@ -16,6 +16,7 @@ const forecastList = document.getElementById("forecast-list");
 const temperatureElement = document.getElementById("temperature");
 const clothingcontainer = document.getElementById("clothing-container");
 const list = document.getElementById("search-list")
+const clothingOptions = document.getElementById("options");
 
 let dailyDivContainer;
 
@@ -266,3 +267,17 @@ cityInput.onblur = () => {
   setTimeout(hideSearchHistoryDropdown, 200);
 };
 
+
+
+function topSelection() {
+  
+}
+function bottomSelection() {
+
+}
+function footSelection() {
+
+}
+function accSelection() {
+
+}
