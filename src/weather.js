@@ -230,7 +230,7 @@ function showClothes(temperature, weatherCondition) {
 
     footwearElement.innerHTML = `<img id="rainboots-image" src="../Images/rain-boots.png" alt="Boots" style="z-index: 1">`;
 
-    accessoriesElement.innerHTML = `<img id="umbrella-image" src="../Images/umbrella.png" alt="Umbrella" style="z-index: 1>`;
+    accessoriesElement.innerHTML = `<img id="umbrella-image" src="../Images/umbrella.png" alt="Umbrella" style="z-index: 1">`;
 
   }
 
