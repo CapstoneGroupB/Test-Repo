@@ -15,7 +15,10 @@ const windSpeed = document.getElementById("wind-speed");
 const forecastList = document.getElementById("forecast-list");
 const temperatureElement = document.getElementById("temperature");
 const clothingcontainer = document.getElementById("clothing-container");
+const list = document.getElementById("search-list")
+
 let dailyDivContainer;
+
 let clothingVisible = true;
 let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 const MAX_ITEMS = 10;
@@ -126,16 +129,16 @@ function getWeather() {
 
       showClothes(temperature, weatherCondition);
 
-        // get forecast information
-        const lat = data.coord.lat;
-        const lon = data.coord.lon;
-        const forecastUrl = `${ FORECAST_URL }?lat=${ lat }&lon=${ lon }&exclude=current,minutely,hourly,alerts&appid=${ API_KEY }&units=metric`;
-        return fetch(forecastUrl);
-      })
+      // get forecast information
+      const lat = data.coord.lat;
+      const lon = data.coord.lon;
+      const forecastUrl = `${ FORECAST_URL }?lat=${ lat }&lon=${ lon }&exclude=current,minutely,hourly,alerts&appid=${ API_KEY }&units=metric`;
+      return fetch(forecastUrl);
+    })
 
     .then(response => response.json())
     .then(forecastData => {
-      
+
       const forecastContainer = document.getElementById("forecast-container");
 
       // clear previous forecast items
@@ -158,14 +161,7 @@ function getWeather() {
           // code that handles the error
           console.log(err);
         }
-        //create and add a button to display small clothing icons
-        const button = document.createElement("button");
-        button.classList.add("forecast-button");
-        button.textContent = "Show clothes";
-        button.addEventListener("click", function () {
-          showClothes(forecast.temp.day, forecast.weather[ 0 ].main);
-        });
-        
+
         forecastItem.appendChild(icon);
 
         // create and add day of week element
@@ -188,7 +184,7 @@ function getWeather() {
 
 
 
-function showClothes(temperature, weatherCondition){
+function showClothes(temperature, weatherCondition) {
   let recommendedClothes = "";
   // Select all images within the clothes-images div
   const topsElement = document.getElementById("tops");
@@ -224,21 +220,21 @@ function showClothes(temperature, weatherCondition){
     footwearElement.innerHTML = `<img id="heavy-boots-image" src="../Images/heavy-boots.png" alt="Boots" style="z-index: 1">`;
   }
 
-    if (weatherCondition === "Rain") {
-      recommendedClothes += " with rainboots and an umbrella";
+  if (weatherCondition === "Rain") {
+    recommendedClothes += " with rainboots and an umbrella";
 
-      topsElement.innerHTML = `<img id="jacket-image" src="../Images/jacketRedPuffer.png" alt="Jacket" style="z-index: 1">`;
+    topsElement.innerHTML = `<img id="jacket-image" src="../Images/jacketRedPuffer.png" alt="Jacket" style="z-index: 1">`;
 
-      bottomsElement.innerHTML = `<img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants" style="z-index: 1">`;
+    bottomsElement.innerHTML = `<img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants" style="z-index: 1">`;
 
-      footwearElement.innerHTML = `<img id="rainboots-image" src="../Images/rain-boots.png" alt="Boots" style="z-index: 1">`;
+    footwearElement.innerHTML = `<img id="rainboots-image" src="../Images/rain-boots.png" alt="Boots" style="z-index: 1">`;
 
-      accessoriesElement.innerHTML = `<img id="umbrella-image" src="../Images/umbrella.png" alt="Umbrella" style="z-index: 1>`;
+    accessoriesElement.innerHTML = `<img id="umbrella-image" src="../Images/umbrella.png" alt="Umbrella" style="z-index: 1>`;
 
-    }
+  }
 
-    const recommendedClothesElement = document.getElementById("recommended-clothes");
-    recommendedClothesElement.textContent = recommendedClothes;
+  const recommendedClothesElement = document.getElementById("recommended-clothes");
+  recommendedClothesElement.textContent = recommendedClothes;
 }
 
 

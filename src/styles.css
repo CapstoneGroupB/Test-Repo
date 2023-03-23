@@ -1,4 +1,5 @@
 #forecast-container {
+  float        : right;
   display        : flex;
   flex-wrap      : wrap;
   justify-content: space-between;
@@ -6,6 +7,7 @@
 }
 
 .forecast-item {
+  float         : right;
   width         : calc(100% / 7 - 10px);
   margin-bottom : 20px;
   display       : flex;
@@ -14,19 +16,12 @@
   text-align    : center;
 }
 
-#clothes-vertical {
-  display       : flex;
-  flex-direction: column;
-  align-items   : center;
-  text-align    : center;
-}
-
 #clothes-images {
   float         : right;
-  margin-right: 30%;
+  align-items: center;
+  margin-top: -10%;
   /* display       : flex; */
-  /* Set the display property to flex */
-  flex-direction: column;
+
   /* Set the direction of the main axis to vertical */
 }
 
@@ -48,7 +43,7 @@
   /* set the width of the container div */
   height      : 100px;
   /* set the height of the container div */
-  margin-right: 100px;
+  margin-right: 1px;
 }
 
 

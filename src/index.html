@@ -18,23 +18,20 @@
       <input type="text" id="city-input" list="city-list" placeholder="e.g. London">
       <datalist id="city-list">
       </datalist>
+
       <button id="get-weather-btn">Get Weather</button>
       <div id="search-list"></div>
     </div>
+
     <div class="weather-info-container" hidden>
       <br>
       <button type="button" onclick="hideClothing()">Show/Hide recommended clothes</button>
       <h2 id="city-name"></h2>
-      <img id="weather-icon" alt="Weather Icon">
+      <div id="forecast-container">
+        <ul id="forecast-list"></ul>
+      </div>
       <div class="weather-details">
-        <div id="clothes-images">
-          <div id="clothes-vertical">
-            <div id="tops"></div>
-            <div id="bottoms"></div>
-            <div id="footwear"></div>
-            <div id="accessories"></div>
-          </div>
-        </div>
+        <img id="weather-icon" alt="Weather Icon">
         <p id="condition"></p>
         <p id="details"></p>
         <p id="temperature"></p>
@@ -43,10 +40,15 @@
         <p>Wind Speed: <span id="wind-speed"></span></p>
         <p>Recommended Clothes: <span id="recommended-clothes"></span></p>
 
+        <div id="clothes-images">
+          <div id="tops"></div>
+          <div id="bottoms"></div>
+          <div id="footwear"></div>
+          <div id="accessories"></div>
+        </div>
       </div>
-      <div id="forecast-container">
-        <ul id="forecast-list"></ul>
-      </div>
+    </div>
+
   </main>
 
   <script src="weather.js"></script>
