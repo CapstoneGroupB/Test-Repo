@@ -20,9 +20,7 @@
   float         : right;
   align-items: center;
   margin-top: -10%;
-  /* display       : flex; */
-
-  /* Set the direction of the main axis to vertical */
+  display       : flex;
 }
 
 .top {
@@ -48,7 +46,7 @@
 
 
 #clothes-images img {
-  width : 75%;
+  width : 85%;
   height: auto;
 }
 
