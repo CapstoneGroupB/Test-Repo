@@ -200,6 +200,8 @@ function showClothes(temperature, weatherCondition) {
 
     footwearElement.innerHTML = `<img id="sandals-image" src="../Images/footwear/sandals.png" alt="Sandals" style="z-index: 1">`;
 
+    accessoriesElement.innerHTML = ``;
+
   } else if (temperature > 10) {
     recommendedClothes = "a light jacket, pants, and sneakers";
 
@@ -209,6 +211,8 @@ function showClothes(temperature, weatherCondition) {
 
     footwearElement.innerHTML = `<img id="shoes-image" src="../Images/footwear/shoesColor.png" alt="Shoes" style="z-index: 1">`;
 
+    accessoriesElement.innerHTML = ``;
+
   } else {
     recommendedClothes = "a heavy jacket, pants, and boots.";
 
@@ -217,6 +221,8 @@ function showClothes(temperature, weatherCondition) {
     bottomsElement.innerHTML = `<img id="pants-image" src="../Images/bottoms/jeans.png" alt="Pants" style="z-index: 1">`;
 
     footwearElement.innerHTML = `<img id="heavy-boots-image" src="../Images/footwear/heavy-boots.png" alt="Boots" style="z-index: 1">`;
+
+    accessoriesElement.innerHTML = ``;
   }
 
   if (weatherCondition === "Rain") {
