@@ -27,10 +27,22 @@ To use this website, follow these steps:
 
 Note: The clothing recommendations are based on general weather conditions and may not be suitable for everyone's individual preferences or needs. Please use your own judgement when deciding what to wear.
 
-
 ## Contributing
+Please follow these steps:
+1. Fork the repository and create your own branch.
+2. Make your changes and test them thoroughly.
+3. Submit a pull request with a detailed description of your changes and we will review and add.
 
-Information for developers who want to contribute to the project, including how to submit bug reports or pull requests.
+### Contributors
+
+- Atamosa, Michael
+- Baker, Wil
+- Berhe, Abel
+- Cleroux, Jay
+- Fraser, Chris
+- Henley, Colby
+- Jang, Hanpyeong 
+- Skeete, Josh
 
 ## License
 
