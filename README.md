@@ -10,7 +10,6 @@ One sentence description of the project.
   - [Usage](#usage)
   - [Contributing](#contributing)
   - [License](#license)
-- [Weather Wardrobe](#weather-wardrobe)
 
 ## Description
 
