@@ -84,8 +84,6 @@ function hideClothing() {
     for (let i = 0; i < clothesImages.length; i++) {
       clothesImages[ i ].style.display = "none";
     }
-    document.getElementById("rainboots-image").style.display = "none";
-    document.getElementById("umbrella-image").style.display = "none";
     clothingVisible = false;
     return;
   }
@@ -196,41 +194,41 @@ function showClothes(temperature, weatherCondition) {
   if (temperature > 20) {
     recommendedClothes = "shorts, t-shirt, and sandals.";
 
-    topsElement.innerHTML = `<img id="shirt-image" src="../Images/shirtNoColor.png" alt="Shirt" style="z-index: 1">`;
+    topsElement.innerHTML = `<img id="shirt-image" src="../Images/tops/shirts/shirtNoColor.png" alt="Shirt" style="z-index: 1">`;
 
-    bottomsElement.innerHTML = `<img id="shorts-image" src="../Images/shortsNoColor.png" alt="Shorts" style="z-index: 1">`;
+    bottomsElement.innerHTML = `<img id="shorts-image" src="../Images/bottoms/shortsNoColor.png" alt="Shorts" style="z-index: 1">`;
 
-    footwearElement.innerHTML = `<img id="sandals-image" src="../Images/sandals.png" alt="Sandals" style="z-index: 1">`;
+    footwearElement.innerHTML = `<img id="sandals-image" src="../Images/footwear/sandals.png" alt="Sandals" style="z-index: 1">`;
 
   } else if (temperature > 10) {
     recommendedClothes = "a light jacket, pants, and sneakers";
 
-    topsElement.innerHTML = `<img id="light-jacket-image" src="../Images/hoodieBlue (1).png" alt="Hoodie" style="z-index: 1">`;
+    topsElement.innerHTML = `<img id="light-jacket-image" src="../Images/tops/shirts/hoodieBlue (1).png" alt="Hoodie" style="z-index: 1">`;
 
-    bottomsElement.innerHTML = `<img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants" style="z-index: 1">`;
+    bottomsElement.innerHTML = `<img id="pants-image" src="../Images/bottoms/jeansRipped.png" alt="Pants" style="z-index: 1">`;
 
-    footwearElement.innerHTML = `<img id="shoes-image" src="../Images/shoesColor.png" alt="Shoes" style="z-index: 1">`;
+    footwearElement.innerHTML = `<img id="shoes-image" src="../Images/footwear/shoesColor.png" alt="Shoes" style="z-index: 1">`;
 
   } else {
     recommendedClothes = "a heavy jacket, pants, and boots.";
 
-    topsElement.innerHTML = `<img id="jacket-image" src="../Images/jacketRedPuffer.png" alt="Jacket" style="z-index: 1">`;
+    topsElement.innerHTML = `<img id="jacket-image" src="../Images/tops/Jacket/jacketRedPuffer.png" alt="Jacket" style="z-index: 1">`;
 
-    bottomsElement.innerHTML = `<img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants" style="z-index: 1">`;
+    bottomsElement.innerHTML = `<img id="pants-image" src="../Images/bottoms/jeans.png" alt="Pants" style="z-index: 1">`;
 
-    footwearElement.innerHTML = `<img id="heavy-boots-image" src="../Images/heavy-boots.png" alt="Boots" style="z-index: 1">`;
+    footwearElement.innerHTML = `<img id="heavy-boots-image" src="../Images/footwear/heavy-boots.png" alt="Boots" style="z-index: 1">`;
   }
 
   if (weatherCondition === "Rain") {
     recommendedClothes += " with rainboots and an umbrella";
 
-    topsElement.innerHTML = `<img id="jacket-image" src="../Images/jacketRedPuffer.png" alt="Jacket" style="z-index: 1">`;
+    topsElement.innerHTML = `<img id="jacket-image" src="../Images/tops/Jacket/jacketRedPuffer.png" alt="Jacket" style="z-index: 1">`;
 
-    bottomsElement.innerHTML = `<img id="pants-image" src="../Images/jeansColorStraight.png" alt="Pants" style="z-index: 1">`;
+    bottomsElement.innerHTML = `<img id="pants-image" src="../Images/bottoms/jeans.png" alt="Pants" style="z-index: 1">`;
 
-    footwearElement.innerHTML = `<img id="rainboots-image" src="../Images/rain-boots.png" alt="Boots" style="z-index: 1">`;
+    footwearElement.innerHTML = `<img id="rainboots-image" src="../Images/footwear/rain-boots.png" alt="Boots" style="z-index: 1">`;
 
-    accessoriesElement.innerHTML = `<img id="umbrella-image" src="../Images/umbrella.png" alt="Umbrella" style="z-index: 1">`;
+    accessoriesElement.innerHTML = `<img id="umbrella-image" src="../Images/accessories/umbrella.png" alt="Umbrella" style="z-index: 1">`;
 
   }
 
