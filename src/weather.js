@@ -268,16 +268,19 @@ cityInput.onblur = () => {
 };
 
 
-
 function topSelection() {
-  
+  //populate 4 images of tops for the user to look at
+
 }
 function bottomSelection() {
+  //populate 4 images of bottoms for the user to look at
 
 }
 function footSelection() {
+  //populate 4 images of footwear for the user to look at
 
 }
 function accSelection() {
+  //populate 4 images of accessories for the user to look at
 
 }
