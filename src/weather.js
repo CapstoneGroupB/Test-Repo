@@ -293,18 +293,26 @@ function bottomSelection() {
 function footSelection() {
   //populate 4 images of footwear for the user to look at
   clothingOptions.innerHTML = "";
-  if (recommendedClothes.includes("")) {
-
-  }  else if (recommendedClothes.includes("")) {
-
+  if (recommendedClothes.includes("boots")) {
+    clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/boots.png" alt="Footwear" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/heavy-boots.png" alt="Footwear" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/rain-boots.png" alt="Footwear" style="z-index: 1">`;
+  }  else if (recommendedClothes.includes("sneakers")) {
+    clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/shoesColor.png" alt="Footwear" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/jordans.png" alt="Footwear" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/jordans2.png" alt="Footwear" style="z-index: 1">`;
+  } else if(recommendedClothes.includes("sandals")) {
+  clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/shoesColor.png" alt="Footwear" style="z-index: 1">`;
+  clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/jordans.png" alt="Footwear" style="z-index: 1">`;
+  clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/jordans2.png" alt="Footwear" style="z-index: 1">`;
   }
 }
 function accSelection() {
   //populate 4 images of accessories for the user to look at
   clothingOptions.innerHTML = "";
-  if (recommendedClothes.includes("")) {
-    
-  }  else if (recommendedClothes.includes("")) {
-    
-  }
+  if (recommendedClothes.includes("umbrella")) {
+    clothingOptions.innerHTML += `<img id="acc-image1" src="../Images/accessories/umbrella.png" alt="Umbrella" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="acc-image1" src="../Images/accessories/umbrella2.png" alt="Umbrella" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="acc-image1" src="../Images/accessories/umbrella3.png" alt="Umbrella" style="z-index: 1">`;
+  }  
 }
