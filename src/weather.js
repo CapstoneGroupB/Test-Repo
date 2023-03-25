@@ -31,6 +31,10 @@ getWeatherBtn.addEventListener("click", getWeather);
 // add event listener for keypress event
 cityInput.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
+    if (cityInput.value === "") {
+      alert("Please enter a city name");
+      return;
+    }
     getWeather();
   }
 });
@@ -72,60 +76,130 @@ function getWeather() {
   // construct the URL for fetching weather information
   
   const weatherUrl = `${ WEATHER_URL }?q=${ cityInput.value }&appid=${ API_KEY }&units=metric`;
-
   console.log(weatherUrl);
 
-  // fetch weather information
-  fetch(weatherUrl)
-    .then(response => response.json())
-    .then(data => {
-      if (data.cod === 429) {
-        // If the API key is invalid, show an error message
-        alert("api key exceeding limit, please wait for 10 minutes");
-      } else if (data.cod === 401) {
-        // If the API key is invalid, show an error message
-        alert("api key is invalid");
-      } else if (data.cod === 404) {
-        // If the city is not found, show an error message
-        alert("city not found, Make sure it is spelled correctly, alternativly we might not have data for that city yet");
-      }
-      console.log(data.weather[0].icon)
-      cityName.textContent = data.name;
+  if (cityInput.value === "devtest") {
+    let data = {
+      "coord": {
+        "lon": -63.6,
+        "lat": 44.65
+      },
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "clear sky",
+          "icon": "01d"
+        }
+      ],
+      "base": "stations",
+      "main": {
+        "temp": 15.56,
+        "feels_like": 11.7,
+        "temp_min": 14.44,
+        "temp_max": 16.67,
+        "pressure": 1019,
+        "humidity": 93
+      },
+      "visibility": 10000,
+      "wind": {
+        "speed": 3.6,
+        "deg": 240
+      },
+      "clouds": {
+        "all": 1
+      },
+      "dt": 1603120000,
+      "sys": {
+        "type": 1,
+        "id": 1007,
+        "country": "CA",
+        "sunrise": 1603090000,
+        "sunset": 1603133200
+      },
+      "timezone": -10800,
+      "id": 6324729,
+      "name": "Halifax",
+      "cod": 200
+    }
+    try {
+      weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
+      condition.textContent = data.weather[ 0 ].main;
+      details.textContent = data.weather[ 0 ].description;
+      sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
+      sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
+      windSpeed.textContent = data.wind.speed;
 
-      //add cityName to searchHistory
-      if (!searchHistory.includes(cityName.textContent) && cityInput.value !== "") { searchHistory.push(cityName.textContent); }
-      //limit search items to 10 
-      if (searchHistory.length > MAX_ITEMS) {
-        searchHistory = searchHistory.slice(-MAX_ITEMS);
-      }
-      //store search items in localStorage for data persistence
-      localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-      try {
-        weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
-        condition.textContent = data.weather[ 0 ].main;
-        details.textContent = data.weather[ 0 ].description;
-        sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
-        sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
-        windSpeed.textContent = data.wind.speed;
+      // recommend clothes based on weather and temperature
+      const temperature = data.main.temp;
+      temperatureElement.textContent = `${ temperature.toFixed(1) }°C`;
+      const weatherCondition = data.weather[ 0 ].main;
 
-        // recommend clothes based on weather and temperature
-        const temperature = data.main.temp;
-        temperatureElement.textContent = `${ temperature.toFixed(1) }°C`;
-        const weatherCondition = data.weather[ 0 ].main;
+      showClothes(temperature, weatherCondition);
 
-        showClothes(temperature, weatherCondition);
+      // get forecast information
+      const lat = data.coord.lat;
+      const lon = data.coord.lon;
+      //https://api.openweathermap.org/data/2.5/weather?q=Halifax&appid=9336659e97dc88345c4e1df3f8b2dca9&units=metric
+      const forecastUrl = `${ FORECAST_URL }?lat=${ lat }&lon=${ lon }&exclude=current,minutely,hourly,alerts&appid=${ API_KEY }&units=metric`;
+      // return fetch(forecastUrl);
+      
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
 
-        // get forecast information
-        const lat = data.coord.lat;
-        const lon = data.coord.lon;
-        //https://api.openweathermap.org/data/2.5/weather?q=Halifax&appid=9336659e97dc88345c4e1df3f8b2dca9&units=metric
-        const forecastUrl = `${ FORECAST_URL }?lat=${ lat }&lon=${ lon }&exclude=current,minutely,hourly,alerts&appid=${ API_KEY }&units=metric`;
-        // return fetch(forecastUrl);
+    // fetch weather information
+    fetch(weatherUrl)
+      .then(response => response.json())
+      .then(data => {
+        if (data.cod === 429) {
+          // If the API key is invalid, show an error message
+          alert("api key exceeding limit, please wait for 10 minutes");
+        } else if (data.cod === 401) {
+          // If the API key is invalid, show an error message
+          alert("api key is invalid");
+        } else if (data.cod === 404) {
+          // If the city is not found, show an error message
+          alert("city not found, Make sure it is spelled correctly, alternativly we might not have data for that city yet");
+        }
+        console.log(data.weather[ 0 ].icon)
+        cityName.textContent = data.name;
+
+        //add cityName to searchHistory
+        if (!searchHistory.includes(cityName.textContent) && cityInput.value !== "") { searchHistory.push(cityName.textContent); }
+        //limit search items to 10 
+        if (searchHistory.length > MAX_ITEMS) {
+          searchHistory = searchHistory.slice(-MAX_ITEMS);
+        }
+        //store search items in localStorage for data persistence
+        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+        try {
+          weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
+          condition.textContent = data.weather[ 0 ].main;
+          details.textContent = data.weather[ 0 ].description;
+          sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
+          sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
+          windSpeed.textContent = data.wind.speed;
+
+          // recommend clothes based on weather and temperature
+          const temperature = data.main.temp;
+          temperatureElement.textContent = `${ temperature.toFixed(1) }°C`;
+          const weatherCondition = data.weather[ 0 ].main;
+
+          showClothes(temperature, weatherCondition);
+
+          // get forecast information
+          const lat = data.coord.lat;
+          const lon = data.coord.lon;
+          //https://api.openweathermap.org/data/2.5/weather?q=Halifax&appid=9336659e97dc88345c4e1df3f8b2dca9&units=metric
+          const forecastUrl = `${ FORECAST_URL }?lat=${ lat }&lon=${ lon }&exclude=current,minutely,hourly,alerts&appid=${ API_KEY }&units=metric`;
+          // return fetch(forecastUrl);
         
-      } catch (err) {
-        console.log(err);
-      }
-    })
+        } catch (err) {
+          console.log(err);
+        }
+      })
     // .then(response => response.json(console.log(response)))
     // .then(forecastData => {
 
@@ -170,9 +244,9 @@ function getWeather() {
     //     forecastContainer.appendChild(forecastItem);
     //   }
     // })
+  }
+
 }
-
-
 
 function showClothes(temperature, weatherCondition) {
   recommendedClothes = "";
