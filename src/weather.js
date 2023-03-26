@@ -74,7 +74,7 @@ CityName1.addEventListener('DOMSubtreeModified', showWeatherInfo);
 
 function getWeather() {
   // construct the URL for fetching weather information
-  
+
   const weatherUrl = `${ WEATHER_URL }?q=${ cityInput.value }&appid=${ API_KEY }&units=metric`;
   console.log(weatherUrl);
 
@@ -122,8 +122,23 @@ function getWeather() {
       "name": "Halifax",
       "cod": 200
     }
+    console.log(data);
     try {
-      weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
+      // weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[0].icon }.png`;
+      // condition.textContent = data.weather[ 0 ].main;
+      // details.textContent = data.weather[ 0 ].description;
+      // sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
+      // sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
+      // windSpeed.textContent = data.wind.speed;
+
+      // // recommend clothes based on weather and temperature
+      // const temperature = data.main.temp;
+      // temperatureElement.textContent = `${ temperature.toFixed(1) }°C`;
+      // const weatherCondition = data.weather[ 0 ].main;
+
+      // showClothes(temperature, weatherCondition);      
+
+      // weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
       condition.textContent = data.weather[ 0 ].main;
       details.textContent = data.weather[ 0 ].description;
       sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
@@ -136,14 +151,6 @@ function getWeather() {
       const weatherCondition = data.weather[ 0 ].main;
 
       showClothes(temperature, weatherCondition);
-
-      // get forecast information
-      const lat = data.coord.lat;
-      const lon = data.coord.lon;
-      //https://api.openweathermap.org/data/2.5/weather?q=Halifax&appid=9336659e97dc88345c4e1df3f8b2dca9&units=metric
-      const forecastUrl = `${ FORECAST_URL }?lat=${ lat }&lon=${ lon }&exclude=current,minutely,hourly,alerts&appid=${ API_KEY }&units=metric`;
-      // return fetch(forecastUrl);
-      
     } catch (err) {
       console.log(err);
     }
@@ -176,26 +183,25 @@ function getWeather() {
         localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
         try {
           weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
+          console.log(weatherIcon.src);
           condition.textContent = data.weather[ 0 ].main;
+          console.log(condition.textContent);
           details.textContent = data.weather[ 0 ].description;
+          console.log(details.textContent);
           sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
+          console.log(sunrise.textContent);
           sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
+          console.log(sunset.textContent);
           windSpeed.textContent = data.wind.speed;
+          console.log(windSpeed.textContent);
 
           // recommend clothes based on weather and temperature
           const temperature = data.main.temp;
           temperatureElement.textContent = `${ temperature.toFixed(1) }°C`;
           const weatherCondition = data.weather[ 0 ].main;
-
+          condition.textContent = weatherCondition;
           showClothes(temperature, weatherCondition);
 
-          // get forecast information
-          const lat = data.coord.lat;
-          const lon = data.coord.lon;
-          //https://api.openweathermap.org/data/2.5/weather?q=Halifax&appid=9336659e97dc88345c4e1df3f8b2dca9&units=metric
-          const forecastUrl = `${ FORECAST_URL }?lat=${ lat }&lon=${ lon }&exclude=current,minutely,hourly,alerts&appid=${ API_KEY }&units=metric`;
-          // return fetch(forecastUrl);
-        
         } catch (err) {
           console.log(err);
         }
@@ -358,7 +364,7 @@ function bottomSelection() {
     clothingOptions.innerHTML += `<img id="shorts-image1" src="../Images/bottoms/shortsNoColor.png" alt="Shorts" style="z-index: 1">`;
     clothingOptions.innerHTML += `<img id="shorts-image1" src="../Images/bottoms/skirtNoColor.png" alt="Shorts" style="z-index: 1">`;
     clothingOptions.innerHTML += `<img id="shorts-image1" src="../Images/bottoms/denim-shortsColor.png" alt="Shorts" style="z-index: 1">`;
-  }  else if (recommendedClothes.includes("pants")) {
+  } else if (recommendedClothes.includes("pants")) {
     clothingOptions.innerHTML += `<img id="pants-image1" src="../Images/bottoms/jeansRipped.png" alt="Pants" style="z-index: 1">`;
     clothingOptions.innerHTML += `<img id="pants-image1" src="../Images/bottoms/trousersNoColor.png" alt="Pants" style="z-index: 1">`;
     clothingOptions.innerHTML += `<img id="pants-image1" src="../Images/bottoms/trousersOrange.png" alt="Pants" style="z-index: 1">`;
@@ -371,14 +377,14 @@ function footSelection() {
     clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/boots.png" alt="Footwear" style="z-index: 1">`;
     clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/heavy-boots.png" alt="Footwear" style="z-index: 1">`;
     clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/rain-boots.png" alt="Footwear" style="z-index: 1">`;
-  }  else if (recommendedClothes.includes("sneakers")) {
+  } else if (recommendedClothes.includes("sneakers")) {
     clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/shoesColor.png" alt="Footwear" style="z-index: 1">`;
     clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/jordans.png" alt="Footwear" style="z-index: 1">`;
     clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/jordans2.png" alt="Footwear" style="z-index: 1">`;
-  } else if(recommendedClothes.includes("sandals")) {
-  clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/shoesColor.png" alt="Footwear" style="z-index: 1">`;
-  clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/jordans.png" alt="Footwear" style="z-index: 1">`;
-  clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/jordans2.png" alt="Footwear" style="z-index: 1">`;
+  } else if (recommendedClothes.includes("sandals")) {
+    clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/shoesColor.png" alt="Footwear" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/jordans.png" alt="Footwear" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/jordans2.png" alt="Footwear" style="z-index: 1">`;
   }
 }
 function accSelection() {
@@ -388,5 +394,5 @@ function accSelection() {
     clothingOptions.innerHTML += `<img id="acc-image1" src="../Images/accessories/umbrella.png" alt="Umbrella" style="z-index: 1">`;
     clothingOptions.innerHTML += `<img id="acc-image1" src="../Images/accessories/umbrella2.png" alt="Umbrella" style="z-index: 1">`;
     clothingOptions.innerHTML += `<img id="acc-image1" src="../Images/accessories/umbrella3.png" alt="Umbrella" style="z-index: 1">`;
-  }  
+  }
 }
