@@ -139,11 +139,17 @@ function getWeather() {
       // showClothes(temperature, weatherCondition);      
 
       // weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
+      console.log(data.weather[ 0 ].main);
       condition.textContent = data.weather[ 0 ].main;
+      console.log(weatherIcon.src);
       details.textContent = data.weather[ 0 ].description;
+      console.log(details.textContent);
       sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
+      console.log(sunrise.textContent);
       sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
+      console.log(sunset.textContent);
       windSpeed.textContent = data.wind.speed;
+      console.log(windSpeed.textContent);
 
       // recommend clothes based on weather and temperature
       const temperature = data.main.temp;
@@ -183,18 +189,12 @@ function getWeather() {
         localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
         try {
           weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
-          console.log(weatherIcon.src);
           condition.textContent = data.weather[ 0 ].main;
-          console.log(condition.textContent);
           details.textContent = data.weather[ 0 ].description;
-          console.log(details.textContent);
           sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
-          console.log(sunrise.textContent);
           sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
-          console.log(sunset.textContent);
           windSpeed.textContent = data.wind.speed;
-          console.log(windSpeed.textContent);
-
+ 
           // recommend clothes based on weather and temperature
           const temperature = data.main.temp;
           temperatureElement.textContent = `${ temperature.toFixed(1) }°C`;
@@ -355,6 +355,7 @@ function topSelection() {
     clothingOptions.innerHTML += `<img id="jacket-image1" src="../Images/tops/Jacket/coatLeather.png" alt="Jacket" style="z-index: 1">`;
     clothingOptions.innerHTML += `<img id="jacket-image2" src="../Images/tops/Jacket/hoodieBlue.png" alt="Jacket" style="z-index: 1">`;
     clothingOptions.innerHTML += `<img id="jacket-image3" src="../Images/tops/Jacket/jacketRedPuffer.png" alt="Jacket" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="jacket-image4" src="../Images/tops/Jacket/jacket.png" alt="Jacket" style="z-index: 1">`;
   }
 }
 function bottomSelection() {
