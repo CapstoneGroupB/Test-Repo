@@ -124,19 +124,7 @@ function getWeather() {
     }
     console.log(data);
     try {
-      // weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[0].icon }.png`;
-      // condition.textContent = data.weather[ 0 ].main;
-      // details.textContent = data.weather[ 0 ].description;
-      // sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
-      // sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
-      // windSpeed.textContent = data.wind.speed;
-
-      // // recommend clothes based on weather and temperature
-      // const temperature = data.main.temp;
-      // temperatureElement.textContent = `${ temperature.toFixed(1) }°C`;
-      // const weatherCondition = data.weather[ 0 ].main;
-
-      // showClothes(temperature, weatherCondition);      
+      
 
       // weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
       console.log(data.weather[ 0 ].main);
