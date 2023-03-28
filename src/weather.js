@@ -81,41 +81,42 @@ function getWeather() {
   if (cityInput.value === "devtest") {
     let data = {
       "coord": {
-        "lon": -63.6,
-        "lat": 44.65
+        "lon": -63.5724,
+        "lat": 44.6453
       },
       "weather": [
         {
-          "id": 800,
-          "main": "Clear",
-          "description": "clear sky",
-          "icon": "01d"
+          "id": 804,
+          "main": "Clouds",
+          "description": "overcast clouds",
+          "icon": "04d"
         }
       ],
       "base": "stations",
       "main": {
-        "temp": 15.56,
-        "feels_like": 11.7,
-        "temp_min": 14.44,
-        "temp_max": 16.67,
-        "pressure": 1019,
-        "humidity": 93
+        "temp": 6.17,
+        "feels_like": 3.29,
+        "temp_min": 4.01,
+        "temp_max": 7.6,
+        "pressure": 1013,
+        "humidity": 55
       },
       "visibility": 10000,
       "wind": {
-        "speed": 3.6,
-        "deg": 240
+        "speed": 4.02,
+        "deg": 324,
+        "gust": 6.26
       },
       "clouds": {
-        "all": 1
+        "all": 100
       },
-      "dt": 1603120000,
+      "dt": 1680030564,
       "sys": {
-        "type": 1,
-        "id": 1007,
+        "type": 2,
+        "id": 2076469,
         "country": "CA",
-        "sunrise": 1603090000,
-        "sunset": 1603133200
+        "sunrise": 1679997781,
+        "sunset": 1680042937
       },
       "timezone": -10800,
       "id": 6324729,
@@ -124,9 +125,7 @@ function getWeather() {
     }
     console.log(data);
     try {
-
-
-      // weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
+      weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
       console.log(data.weather[ 0 ].main);
       condition.textContent = data.weather[ 0 ].main;
       console.log(weatherIcon.src);
