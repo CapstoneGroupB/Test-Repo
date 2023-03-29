@@ -110,11 +110,18 @@ button {
   font-weight     : bold;
   color           : #2a42c9;
   background-color: #FBB829;
+  border: 1px solid lightblue ;
+  border-radius: 20px;
+  transition: all 0.5s ease;
+}
+
+button:hover{
+  transform: scale(1.07);
 }
 
 #search-list{
   left: 90px;
-  width: 168px;
+  width: 200px;
   position: absolute;
   /* border: 1px solid lightgrey; */
   border-radius: 5px;
@@ -236,5 +243,17 @@ input:checked + .slider:before {
   padding: 0;
   vertical-align: middle;
   padding-bottom: 10px;
+}
+
+/**/
+#search-input{
+  width: 200px;
+  outline: none;
+  border: 0px;
+  border-radius: 20px;
+}
+
+#search-input:focus{
+  background-color: lightblue;
 }
 
