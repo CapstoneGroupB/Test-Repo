@@ -43,7 +43,7 @@ const MAX_ITEMS = 10;
 
 
 
-// 28-Mar test code start
+// 29-Mar test code start
 
 const searchInput = document.getElementById("search-input");
 const searchButton = document.getElementById("search-button");
@@ -84,7 +84,10 @@ const addCityToList = (city) => {
   const li = document.createElement("li");
   li.textContent = `${name}, ${country} ${Math.round(city.main.temp - 273.15)}°C (${lat}, ${lon})`;
   li.addEventListener("click", () => {
-    getWeather(city.id);
+    fetchWeatherData(city.id)
+      .then((data) => {
+        getWeather(data[0]);
+      })
   });
   cityList.appendChild(li);
 };
@@ -139,48 +142,41 @@ searchInput.addEventListener("keypress", (event) => {
   }
 });
 
-function getWeather(cityId) {
-  // construct the URL for fetching weather information
-  const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${API_KEY}`;
+function getWeather(data) {
+  cityName.textContent = data.name;
+  weatherIcon.src = `https://api.openweathermap.org/img/w/${data.weather[0].icon}.png`;
+  condition.textContent = data.weather[0].main;
+  details.textContent = data.weather[0].description;
+  sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
+  sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
+  windSpeed.textContent = data.wind.speed;
 
-  // fetch weather information
-  fetch(weatherUrl)
-    .then((response) => response.json())
-    .then((data) => {
-      cityName.textContent = data.name;
-      weatherIcon.src = `https://api.openweathermap.org/img/w/${data.weather[0].icon}.png`;
-      condition.textContent = data.weather[0].main;
-      details.textContent = data.weather[0].description;
-      sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
-      sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
-      windSpeed.textContent = data.wind.speed;
+  // recommend clothes based on weather and temperature
+  const temperature = data.main.temp;
+  temperatureElement.textContent = `${ Math.round(data.main.temp - 273.15) }°C`;
+  const weatherCondition = data.weather[ 0 ].main;
 
-      // recommend clothes based on weather and temperature
-      const temperature = data.main.temp;
-      temperatureElement.textContent = `${ temperature.toFixed(1) }°C`;
-      const weatherCondition = data.weather[ 0 ].main;
-
-      showClothes(temperature, weatherCondition);
-      hideClothing();
-    });
+  showClothes(temperature, weatherCondition);
+  hideClothing();
 }
 
 function hideClothing() {
   const toggleBtn = document.getElementById("clothing-toggle");
+  const clothesImages = document.getElementById("clothes-images").querySelectorAll("img");
   if (toggleBtn.checked) {
-    const clothesImages = document.getElementById("clothes-images").querySelectorAll("img");
     for (let i = 0; i < clothesImages.length; i++) {
-      clothesImages[ i ].style.display = "none";
+      clothesImages[ i ].style.visibility = "hidden";
     }
     clothingVisible = false;
-    return;
+  } else {
+    for (let i = 0; i < clothesImages.length; i++) {
+      clothesImages[ i ].style.visibility = "visible";
+    }
+    clothingVisible = true;
   }
-
-  getWeather();
-  clothingVisible = true;
 }
 
-// 28-Mar test code end
+// 29-Mar test code end
 
 
 

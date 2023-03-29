@@ -13,6 +13,8 @@
     <h1>Weather Wardrobe </h1>
   </header>
   <main>
+
+    <!-- 29-Mar test code start -->
     <div id="search-form">
       <div>
         <input type="text" placeholder="Search city" id="search-input" placeholder="Enter city name" />
@@ -21,6 +23,7 @@
       </div>
       <div id="not-found">Not found</div>
     </div>
+    <!-- 29-Mar test code end -->
 
     <!-- <div class="input-container">
       <label for="city-input">Enter City:</label>
@@ -34,8 +37,16 @@
 
     <div class="weather-info-container" hidden>
       <br>
-      <button type="button" onclick="hideClothing()">Show/Hide recommended clothes</button>
-      <p> Click on the images to see more options </p>
+      <!-- <button type="button" onclick="hideClothing()">Show/Hide recommended clothes</button>
+      <p> Click on the images to see more options </p> -->
+
+      <!-- 29-Mar test code start -->
+      <p>Show/Hide recommended clothes</p>
+      <label class="toggle-btn"><input type="checkbox" onclick="hideClothing()" id="clothing-toggle">
+        <span class="slider round"></span>
+      </label>
+      <!-- 29-Mar test code end -->
+
       <h2 id="city-name"></h2>
       <div id="forecast-container">
         <ul id="forecast-list"></ul>
