@@ -6,14 +6,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather App</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="/Images/weatherWardrobeIcon.png">
 </head>
 
 <body>
   <header>
-    <h1>Weather Wardrobe </h1>
+    <img src=/Images/weatherWardrobeIcon.png alt="Image icon" class="rounded-image-icon"
+    style="display: inline-block;" width="70" height="70">
+    <h1 class="header-title">Weather Wardrobe </h1>
   </header>
   <main>
-    <div class="input-container">
+
+    <!-- 29-Mar test code start -->
+    <div id="search-form">
+      <div>       
+        <button id="search-button">Search</button>
+        <input type="text" placeholder="Search city" id="search-input" placeholder="Enter city name" />
+      </div>
+      <div id="search-list"></div>
+      <div id="city-list-container">
+        <ul id="city-lists"></ul>
+      </div>
+      <div id="not-found">Not found</div>
+    </div>
+    <!-- 29-Mar test code end -->
+
+    <!-- <div class="input-container">
       <label for="city-input">Enter City:</label>
       <input type="text" id="city-input" list="city-list" placeholder="e.g. London">
       <datalist id="city-list">
@@ -21,12 +39,20 @@
 
       <button id="get-weather-btn">Get Weather</button>
       <div id="search-list"></div>
-    </div>
+    </div> -->
 
     <div class="weather-info-container" hidden>
       <br>
-      <button type="button" onclick="hideClothing()">Show/Hide recommended clothes</button>
-      <p> Click on the images to see more options </p>
+      <!-- <button type="button" onclick="hideClothing()">Show/Hide recommended clothes</button>
+      <p> Click on the images to see more options </p> -->
+
+      <!-- 29-Mar test code start -->
+      <h2>Show/Hide recommended clothes</h2>
+      <label class="toggle-btn"><input type="checkbox" onclick="hideClothing()" id="clothing-toggle">
+        <span class="slider round"></span>
+      </label>
+      <!-- 29-Mar test code end -->
+
       <h2 id="city-name"></h2>
       <div id="forecast-container">
         <ul id="forecast-list"></ul>

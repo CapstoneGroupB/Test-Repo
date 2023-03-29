@@ -1,3 +1,42 @@
+@font-face {
+  font-family: 'fontDarkSide';
+  src: url('..//Fonts//KGDarkSide.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'fontRedHands';
+  src: url('..//Fonts//KGRedHandsOutline.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'fontFunk';
+  src: url('..//Fonts//Funk.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+h1{
+  font-family: 'fontRedHands';
+  font-size: 50px;
+  color: #090322;
+  text-shadow: 1px 1px 1px #ccc;
+}
+
+h2{
+  font-family: 'fontRedHands';
+  font-size: 25px;
+  color: #0a0324;
+  text-shadow: 1px 1px 1px #ccc;
+}
+
+*:not(h1) {
+  font-family: 'fontFunk';
+  font-size: 20px;
+  color: #2a42c9;
+  text-shadow: 1px 1px 1px #ccc;
+}
+
 #forecast-container {
   float        : right;
   display        : flex;
@@ -19,7 +58,7 @@
 #clothes-images {
   float         : right;
   align-items: center;
-  margin-top: -30%;
+  margin-top: -20%;
   display       : flex;
 }
 
@@ -44,7 +83,6 @@
   margin-right: 1px;
 }
 
-
 #clothes-images img {
   width : 85%;
   height: auto;
@@ -62,15 +100,10 @@
 }
 
 body {
-  background           : linear-gradient(to bottom right, #5B92E5, #FFFFFF, #FBB829);
+  background           : linear-gradient(to bottom right, #5B92E5, #bcdcf6, #FBB829);
   background-attachment: fixed;
   font-weight          : bold;
   color                : #2a42c9;
-}
-
-header {
-  font-size  : 36px;
-  text-shadow: 1px 1px 1px #ccc;
 }
 
 button {
@@ -102,5 +135,106 @@ button {
 .list-item:hover{
   background-color: rgba(124, 229, 243, 0.2);
   transform: scale(1.07);
+}
+
+
+
+
+/* start toggle-btn */
+.toggle-btn {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.toggle-btn input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+.toggle-img {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+/* end toggle-btn */
+
+#not-found {
+  display: none;
+  color: red;
+  font-weight: bold;
+}
+
+.list-item {
+  position: relative;
+  display: block;
+}
+
+.delete-button {
+  position: absolute;
+  right: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.rounded-image-icon{
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  padding-bottom: 10px;
+}
+
+.header-title {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+  padding-bottom: 10px;
 }
 
