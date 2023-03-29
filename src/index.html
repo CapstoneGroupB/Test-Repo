@@ -13,7 +13,16 @@
     <h1>Weather Wardrobe </h1>
   </header>
   <main>
-    <div class="input-container">
+    <div id="search-form">
+      <div>
+        <input type="text" placeholder="Search city" id="search-input" placeholder="Enter city name" />
+        <button id="search-button">Search</button>
+        <ul id="city-lists"></ul>
+      </div>
+      <div id="not-found">Not found</div>
+    </div>
+
+    <!-- <div class="input-container">
       <label for="city-input">Enter City:</label>
       <input type="text" id="city-input" list="city-list" placeholder="e.g. London">
       <datalist id="city-list">
@@ -21,7 +30,7 @@
 
       <button id="get-weather-btn">Get Weather</button>
       <div id="search-list"></div>
-    </div>
+    </div> -->
 
     <div class="weather-info-container" hidden>
       <br>

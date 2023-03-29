@@ -25,19 +25,154 @@ let clothingVisible = true;
 let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 const MAX_ITEMS = 10;
 
-// add event listener for click event
-getWeatherBtn.addEventListener("click", getWeather);
+// // add event listener for click event
+// getWeatherBtn.addEventListener("click", getWeather);
 
-// add event listener for keypress event
-cityInput.addEventListener("keypress", function (event) {
-  if (event.key === "Enter") {
-    if (cityInput.value === "") {
-      alert("Please enter a city name");
-      return;
+// // add event listener for keypress event
+// cityInput.addEventListener("keypress", function (event) {
+//   if (event.key === "Enter") {
+//     if (cityInput.value === "") {
+//       alert("Please enter a city name");
+//       return;
+//     }
+//     getWeather();
+//   }
+// });
+
+
+
+
+
+// 38-Mar test code start
+
+const searchInput = document.getElementById("search-input");
+const searchButton = document.getElementById("search-button");
+const cityList = document.getElementById("city-lists");
+const notFound = document.getElementById("not-found");
+
+// Fetch weather data from OpenWeatherMap API
+const fetchWeatherData = async (cityId) => {
+  const response = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${API_KEY}`
+  );
+  if (response.ok) {
+    const data = await response.json();
+    return [data];
+  } else {
+    throw new Error("City not found");
+  }
+};
+
+const fetchCityId = async (cityName) => {
+  const response = await fetch(
+    `https://api.openweathermap.org/data/2.5/find?q=${cityName}&appid=${API_KEY}`
+  );
+  if (response.ok) {
+    const data = await response.json();
+    if (data.list.length > 0) {
+      return data.list.map((city) => city.id);
+    } else {
+      throw new Error("City not found");
     }
-    getWeather();
+  } else {
+    throw new Error("City not found");
+  }
+};
+
+const addCityToList = (city) => {
+  const { name, sys: { country }, coord: { lat, lon } } = city;
+  const li = document.createElement("li");
+  li.textContent = `${name}, ${country} ${Math.round(city.main.temp - 273.15)}°C (${lat}, ${lon})`;
+  li.addEventListener("click", () => {
+    getWeather(city.id);
+  });
+  cityList.appendChild(li);
+};
+
+// Clear the list
+const clearCityList = () => {
+  cityList.innerHTML = "";
+};
+
+// Show the "Not found" message
+const showNotFound = () => {
+  notFound.style.display = "block";
+};
+
+// Hide the "Not found" message
+const hideNotFound = () => {
+  notFound.style.display = "none";
+};
+
+// Handle search button click event
+searchButton.addEventListener("click", () => {
+  const cityName = searchInput.value.trim();
+  if (cityName) {
+    clearCityList();
+    hideNotFound(); // hide the "Not found" message
+    fetchCityId(cityName)
+      .then((cityIds) => {
+        cityIds.forEach((cityId) => {
+          fetchWeatherData(cityId)
+            .then((data) => {
+              if (data.length > 0) {
+                data.forEach(addCityToList);
+              } else {
+                showNotFound();
+              }
+            })
+            .catch(() => {
+              showNotFound();
+            });
+        });
+      })
+      .catch(() => {
+        showNotFound();
+      });
   }
 });
+
+// Handle search input key press event
+searchInput.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    searchButton.click();
+  }
+});
+
+function getWeather(cityId) {
+  // construct the URL for fetching weather information
+  const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${API_KEY}`;
+
+  // fetch weather information
+  fetch(weatherUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      cityName.textContent = data.name;
+      weatherIcon.src = `https://api.openweathermap.org/img/w/${data.weather[0].icon}.png`;
+      condition.textContent = data.weather[0].main;
+      details.textContent = data.weather[0].description;
+      sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
+      sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
+      windSpeed.textContent = data.wind.speed;
+
+      // recommend clothes based on weather and temperature
+      const temperature = data.main.temp;
+      temperatureElement.textContent = `${ temperature.toFixed(1) }°C`;
+      const weatherCondition = data.weather[ 0 ].main;
+
+      showClothes(temperature, weatherCondition);
+      hideClothing();
+    });
+}
+
+
+// 38-Mar test code end
+
+
+
+
+
+
 
 // hide or show weather info
 const weatherInfoContainer = document.querySelector('.weather-info-container');
@@ -72,175 +207,175 @@ function hideClothing() {
 // Listen for changes to the city name input
 CityName1.addEventListener('DOMSubtreeModified', showWeatherInfo);
 
-function getWeather() {
-  // construct the URL for fetching weather information
+// function getWeather() {
+//   // construct the URL for fetching weather information
 
-  const weatherUrl = `${ WEATHER_URL }?q=${ cityInput.value }&appid=${ API_KEY }&units=metric`;
-  console.log(weatherUrl);
+//   const weatherUrl = `${ WEATHER_URL }?q=${ cityInput.value }&appid=${ API_KEY }&units=metric`;
+//   console.log(weatherUrl);
 
-  if (cityInput.value === "devtest") {
-    let data = {
-      "coord": {
-        "lon": -63.6,
-        "lat": 44.65
-      },
-      "weather": [
-        {
-          "id": 800,
-          "main": "Clear",
-          "description": "clear sky",
-          "icon": "01d"
-        }
-      ],
-      "base": "stations",
-      "main": {
-        "temp": 15.56,
-        "feels_like": 11.7,
-        "temp_min": 14.44,
-        "temp_max": 16.67,
-        "pressure": 1019,
-        "humidity": 93
-      },
-      "visibility": 10000,
-      "wind": {
-        "speed": 3.6,
-        "deg": 240
-      },
-      "clouds": {
-        "all": 1
-      },
-      "dt": 1603120000,
-      "sys": {
-        "type": 1,
-        "id": 1007,
-        "country": "CA",
-        "sunrise": 1603090000,
-        "sunset": 1603133200
-      },
-      "timezone": -10800,
-      "id": 6324729,
-      "name": "Halifax",
-      "cod": 200
-    }
-    console.log(data);
-    try {
+//   if (cityInput.value === "devtest") {
+//     let data = {
+//       "coord": {
+//         "lon": -63.6,
+//         "lat": 44.65
+//       },
+//       "weather": [
+//         {
+//           "id": 800,
+//           "main": "Clear",
+//           "description": "clear sky",
+//           "icon": "01d"
+//         }
+//       ],
+//       "base": "stations",
+//       "main": {
+//         "temp": 15.56,
+//         "feels_like": 11.7,
+//         "temp_min": 14.44,
+//         "temp_max": 16.67,
+//         "pressure": 1019,
+//         "humidity": 93
+//       },
+//       "visibility": 10000,
+//       "wind": {
+//         "speed": 3.6,
+//         "deg": 240
+//       },
+//       "clouds": {
+//         "all": 1
+//       },
+//       "dt": 1603120000,
+//       "sys": {
+//         "type": 1,
+//         "id": 1007,
+//         "country": "CA",
+//         "sunrise": 1603090000,
+//         "sunset": 1603133200
+//       },
+//       "timezone": -10800,
+//       "id": 6324729,
+//       "name": "Halifax",
+//       "cod": 200
+//     }
+//     console.log(data);
+//     try {
       
 
-      // weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
-      console.log(data.weather[ 0 ].main);
-      condition.textContent = data.weather[ 0 ].main;
-      console.log(weatherIcon.src);
-      details.textContent = data.weather[ 0 ].description;
-      console.log(details.textContent);
-      sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
-      console.log(sunrise.textContent);
-      sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
-      console.log(sunset.textContent);
-      windSpeed.textContent = data.wind.speed;
-      console.log(windSpeed.textContent);
+//       // weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
+//       console.log(data.weather[ 0 ].main);
+//       condition.textContent = data.weather[ 0 ].main;
+//       console.log(weatherIcon.src);
+//       details.textContent = data.weather[ 0 ].description;
+//       console.log(details.textContent);
+//       sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
+//       console.log(sunrise.textContent);
+//       sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
+//       console.log(sunset.textContent);
+//       windSpeed.textContent = data.wind.speed;
+//       console.log(windSpeed.textContent);
 
-      // recommend clothes based on weather and temperature
-      const temperature = data.main.temp;
-      temperatureElement.textContent = `${ temperature.toFixed(1) }°C`;
-      const weatherCondition = data.weather[ 0 ].main;
+//       // recommend clothes based on weather and temperature
+//       const temperature = data.main.temp;
+//       temperatureElement.textContent = `${ temperature.toFixed(1) }°C`;
+//       const weatherCondition = data.weather[ 0 ].main;
 
-      showClothes(temperature, weatherCondition);
-    } catch (err) {
-      console.log(err);
-    }
-  } else {
+//       showClothes(temperature, weatherCondition);
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   } else {
 
-    // fetch weather information
-    fetch(weatherUrl)
-      .then(response => response.json())
-      .then(data => {
-        if (data.cod === 429) {
-          // If the API key is invalid, show an error message
-          alert("api key exceeding limit, please wait for 10 minutes");
-        } else if (data.cod === 401) {
-          // If the API key is invalid, show an error message
-          alert("api key is invalid");
-        } else if (data.cod === 404) {
-          // If the city is not found, show an error message
-          alert("city not found, Make sure it is spelled correctly, alternativly we might not have data for that city yet");
-        }
-        console.log(data.weather[ 0 ].icon)
-        cityName.textContent = data.name;
+//     // fetch weather information
+//     fetch(weatherUrl)
+//       .then(response => response.json())
+//       .then(data => {
+//         if (data.cod === 429) {
+//           // If the API key is invalid, show an error message
+//           alert("api key exceeding limit, please wait for 10 minutes");
+//         } else if (data.cod === 401) {
+//           // If the API key is invalid, show an error message
+//           alert("api key is invalid");
+//         } else if (data.cod === 404) {
+//           // If the city is not found, show an error message
+//           alert("city not found, Make sure it is spelled correctly, alternativly we might not have data for that city yet");
+//         }
+//         console.log(data.weather[ 0 ].icon)
+//         cityName.textContent = data.name;
 
-        //add cityName to searchHistory
-        if (!searchHistory.includes(cityName.textContent) && cityInput.value !== "") { searchHistory.push(cityName.textContent); }
-        //limit search items to 10 
-        if (searchHistory.length > MAX_ITEMS) {
-          searchHistory = searchHistory.slice(-MAX_ITEMS);
-        }
-        //store search items in localStorage for data persistence
-        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-        try {
-          weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
-          condition.textContent = data.weather[ 0 ].main;
-          details.textContent = data.weather[ 0 ].description;
-          sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
-          sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
-          windSpeed.textContent = data.wind.speed;
+//         //add cityName to searchHistory
+//         if (!searchHistory.includes(cityName.textContent) && cityInput.value !== "") { searchHistory.push(cityName.textContent); }
+//         //limit search items to 10 
+//         if (searchHistory.length > MAX_ITEMS) {
+//           searchHistory = searchHistory.slice(-MAX_ITEMS);
+//         }
+//         //store search items in localStorage for data persistence
+//         localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+//         try {
+//           weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
+//           condition.textContent = data.weather[ 0 ].main;
+//           details.textContent = data.weather[ 0 ].description;
+//           sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
+//           sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
+//           windSpeed.textContent = data.wind.speed;
  
-          // recommend clothes based on weather and temperature
-          const temperature = data.main.temp;
-          temperatureElement.textContent = `${ temperature.toFixed(1) }°C`;
-          const weatherCondition = data.weather[ 0 ].main;
-          condition.textContent = weatherCondition;
-          showClothes(temperature, weatherCondition);
+//           // recommend clothes based on weather and temperature
+//           const temperature = data.main.temp;
+//           temperatureElement.textContent = `${ temperature.toFixed(1) }°C`;
+//           const weatherCondition = data.weather[ 0 ].main;
+//           condition.textContent = weatherCondition;
+//           showClothes(temperature, weatherCondition);
 
-        } catch (err) {
-          console.log(err);
-        }
-      })
-    // .then(response => response.json(console.log(response)))
-    // .then(forecastData => {
+//         } catch (err) {
+//           console.log(err);
+//         }
+//       })
+//     // .then(response => response.json(console.log(response)))
+//     // .then(forecastData => {
 
-    //   const forecastContainer = document.getElementById("forecast-container");
+//     //   const forecastContainer = document.getElementById("forecast-container");
 
-    //   // clear previous forecast items
-    //   forecastContainer.innerHTML = "";
-    //   console.log(forecastData);
-    //   for (let i = 0; i < 7; i++) {
-    //     const forecast = forecastData.daily[ i ];
+//     //   // clear previous forecast items
+//     //   forecastContainer.innerHTML = "";
+//     //   console.log(forecastData);
+//     //   for (let i = 0; i < 7; i++) {
+//     //     const forecast = forecastData.daily[ i ];
 
-    //     // create forecast item element
-    //     const forecastItem = document.createElement("div");
-    //     forecastItem.classList.add("forecast-item");
+//     //     // create forecast item element
+//     //     const forecastItem = document.createElement("div");
+//     //     forecastItem.classList.add("forecast-item");
 
-    //     // create and add icon element
-    //     const icon = document.createElement("img");
-    //     icon.classList.add("forecast-icon");
-    //     try {
-    //       // code that may throw an error
-    //       icon.src = `https://api.openweathermap.org/img/w/${ forecast.weather[ 0 ].icon }.png`;
-    //     } catch (err) {
-    //       // code that handles the error
-    //       console.log(err);
-    //     }
+//     //     // create and add icon element
+//     //     const icon = document.createElement("img");
+//     //     icon.classList.add("forecast-icon");
+//     //     try {
+//     //       // code that may throw an error
+//     //       icon.src = `https://api.openweathermap.org/img/w/${ forecast.weather[ 0 ].icon }.png`;
+//     //     } catch (err) {
+//     //       // code that handles the error
+//     //       console.log(err);
+//     //     }
 
-    //     forecastItem.appendChild(icon);
+//     //     forecastItem.appendChild(icon);
 
-    //     // create and add day of week element
-    //     const dayOfWeek = document.createElement("div");
-    //     dayOfWeek.classList.add("forecast-day-of-week");
-    //     dayOfWeek.textContent = new Date(forecast.dt * 1000).toLocaleDateString(undefined, { weekday: 'short' });
-    //     forecastItem.appendChild(dayOfWeek);
+//     //     // create and add day of week element
+//     //     const dayOfWeek = document.createElement("div");
+//     //     dayOfWeek.classList.add("forecast-day-of-week");
+//     //     dayOfWeek.textContent = new Date(forecast.dt * 1000).toLocaleDateString(undefined, { weekday: 'short' });
+//     //     forecastItem.appendChild(dayOfWeek);
 
-    //     // create and add temperature range element
-    //     const tempRange = document.createElement("div");
-    //     tempRange.classList.add("forecast-temp-range");
-    //     tempRange.textContent = `${ forecast.temp.min.toFixed(1) }°C / ${ forecast.temp.max.toFixed(1) }°C`;
-    //     forecastItem.appendChild(tempRange);
+//     //     // create and add temperature range element
+//     //     const tempRange = document.createElement("div");
+//     //     tempRange.classList.add("forecast-temp-range");
+//     //     tempRange.textContent = `${ forecast.temp.min.toFixed(1) }°C / ${ forecast.temp.max.toFixed(1) }°C`;
+//     //     forecastItem.appendChild(tempRange);
 
-    //     // append the forecast item to the container element
-    //     forecastContainer.appendChild(forecastItem);
-    //   }
-    // })
-  }
+//     //     // append the forecast item to the container element
+//     //     forecastContainer.appendChild(forecastItem);
+//     //   }
+//     // })
+//   }
 
-}
+// }
 
 function showClothes(temperature, weatherCondition) {
   recommendedClothes = "";
@@ -302,33 +437,33 @@ function showClothes(temperature, weatherCondition) {
 }
 
 
-function hideSearchHistoryDropdown() {
-  list.style.display = "none";
-}
-function showSearchHistoryDropdown() {
-  list.style.display = "block";
-}
-function populateSearchHistoryDropdown() {
-  list.innerHTML = "";
-  searchHistory.forEach((searchedItem) => {
-    let a = document.createElement("a");
-    let br = document.createElement("br");
-    a.innerHTML = searchedItem;
-    a.classList.add("list-item")
-    a.onclick = () => { cityInput.value = a.innerHTML; list.innerHTML = ""; }
-    list.appendChild(a);
-    list.appendChild(br);
-  });
-}
+// function hideSearchHistoryDropdown() {
+//   list.style.display = "none";
+// }
+// function showSearchHistoryDropdown() {
+//   list.style.display = "block";
+// }
+// function populateSearchHistoryDropdown() {
+//   list.innerHTML = "";
+//   searchHistory.forEach((searchedItem) => {
+//     let a = document.createElement("a");
+//     let br = document.createElement("br");
+//     a.innerHTML = searchedItem;
+//     a.classList.add("list-item")
+//     a.onclick = () => { cityInput.value = a.innerHTML; list.innerHTML = ""; }
+//     list.appendChild(a);
+//     list.appendChild(br);
+//   });
+// }
 
-cityInput.onfocus = () => {
-  populateSearchHistoryDropdown();
-  showSearchHistoryDropdown();
-};
+// cityInput.onfocus = () => {
+//   populateSearchHistoryDropdown();
+//   showSearchHistoryDropdown();
+// };
 
-cityInput.onblur = () => {
-  setTimeout(hideSearchHistoryDropdown, 200);
-};
+// cityInput.onblur = () => {
+//   setTimeout(hideSearchHistoryDropdown, 200);
+// };
 
 
 function topSelection() {
