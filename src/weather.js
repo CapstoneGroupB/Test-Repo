@@ -357,8 +357,7 @@ function populateSearchHistoryDropdown() {
     let br = document.createElement("br");
     a.innerHTML = searchedItem;
     a.classList.add("list-item")
-    a.onclick = () => { searchInput.value = a.innerHTML; list.innerHTML = ""; }
-    
+    a.onclick = () => { searchInput.value = searchedItem; list.innerHTML = ""; } // 수정된 부분
     let button = document.createElement("button");
     button.innerHTML = "X";
     button.classList.add("delete-button");
@@ -371,12 +370,12 @@ function populateSearchHistoryDropdown() {
       localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
       populateSearchHistoryDropdown();
     }
-    
     a.appendChild(button);
     list.appendChild(a);
     list.appendChild(br);
   });
 }
+
 
 
 function topSelection() {
