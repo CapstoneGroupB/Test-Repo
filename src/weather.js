@@ -43,7 +43,7 @@ const MAX_ITEMS = 10;
 
 
 
-// 38-Mar test code start
+// 28-Mar test code start
 
 const searchInput = document.getElementById("search-input");
 const searchButton = document.getElementById("search-button");
@@ -165,8 +165,22 @@ function getWeather(cityId) {
     });
 }
 
+function hideClothing() {
+  const toggleBtn = document.getElementById("clothing-toggle");
+  if (toggleBtn.checked) {
+    const clothesImages = document.getElementById("clothes-images").querySelectorAll("img");
+    for (let i = 0; i < clothesImages.length; i++) {
+      clothesImages[ i ].style.display = "none";
+    }
+    clothingVisible = false;
+    return;
+  }
 
-// 38-Mar test code end
+  getWeather();
+  clothingVisible = true;
+}
+
+// 28-Mar test code end
 
 
 
@@ -189,20 +203,20 @@ function showWeatherInfo() {
   }
 }
 
-function hideClothing() {
+// function hideClothing() {
 
-  if (clothingVisible) {
-    const clothesImages = document.getElementById("clothes-images").querySelectorAll("img");
-    for (let i = 0; i < clothesImages.length; i++) {
-      clothesImages[ i ].style.display = "none";
-    }
-    clothingVisible = false;
-    return;
-  }
+//   if (clothingVisible) {
+//     const clothesImages = document.getElementById("clothes-images").querySelectorAll("img");
+//     for (let i = 0; i < clothesImages.length; i++) {
+//       clothesImages[ i ].style.display = "none";
+//     }
+//     clothingVisible = false;
+//     return;
+//   }
 
-  getWeather();
-  clothingVisible = true;
-}
+//   getWeather();
+//   clothingVisible = true;
+// }
 
 // Listen for changes to the city name input
 CityName1.addEventListener('DOMSubtreeModified', showWeatherInfo);
