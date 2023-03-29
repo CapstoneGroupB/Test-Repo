@@ -274,6 +274,7 @@ CityName1.addEventListener('DOMSubtreeModified', showWeatherInfo);
 
 
 
+
 function showClothes(temperature, weatherCondition) {
   recommendedClothes = "";
   // Select all images within the clothes-images div
