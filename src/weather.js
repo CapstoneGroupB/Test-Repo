@@ -205,193 +205,10 @@ function showWeatherInfo() {
   }
 }
 
-// function hideClothing() {
-
-//   if (clothingVisible) {
-//     const clothesImages = document.getElementById("clothes-images").querySelectorAll("img");
-//     for (let i = 0; i < clothesImages.length; i++) {
-//       clothesImages[ i ].style.display = "none";
-//     }
-//     clothingVisible = false;
-//     return;
-//   }
-
-//   getWeather();
-//   clothingVisible = true;
-// }
-
 // Listen for changes to the city name input
 CityName1.addEventListener('DOMSubtreeModified', showWeatherInfo);
 
-// function getWeather() {
-//   // construct the URL for fetching weather information
 
-//   const weatherUrl = `${ WEATHER_URL }?q=${ cityInput.value }&appid=${ API_KEY }&units=metric`;
-//   console.log(weatherUrl);
-
-//   if (cityInput.value === "devtest") {
-//     let data = {
-//       "coord": {
-//         "lon": -63.6,
-//         "lat": 44.65
-//       },
-//       "weather": [
-//         {
-//           "id": 800,
-//           "main": "Clear",
-//           "description": "clear sky",
-//           "icon": "01d"
-//         }
-//       ],
-//       "base": "stations",
-//       "main": {
-//         "temp": 15.56,
-//         "feels_like": 11.7,
-//         "temp_min": 14.44,
-//         "temp_max": 16.67,
-//         "pressure": 1019,
-//         "humidity": 93
-//       },
-//       "visibility": 10000,
-//       "wind": {
-//         "speed": 3.6,
-//         "deg": 240
-//       },
-//       "clouds": {
-//         "all": 1
-//       },
-//       "dt": 1603120000,
-//       "sys": {
-//         "type": 1,
-//         "id": 1007,
-//         "country": "CA",
-//         "sunrise": 1603090000,
-//         "sunset": 1603133200
-//       },
-//       "timezone": -10800,
-//       "id": 6324729,
-//       "name": "Halifax",
-//       "cod": 200
-//     }
-//     console.log(data);
-//     try {
-
-
-//       // weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
-//       console.log(data.weather[ 0 ].main);
-//       condition.textContent = data.weather[ 0 ].main;
-//       console.log(weatherIcon.src);
-//       details.textContent = data.weather[ 0 ].description;
-//       console.log(details.textContent);
-//       sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
-//       console.log(sunrise.textContent);
-//       sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
-//       console.log(sunset.textContent);
-//       windSpeed.textContent = data.wind.speed;
-//       console.log(windSpeed.textContent);
-
-//       // recommend clothes based on weather and temperature
-//       const temperature = data.main.temp;
-//       temperatureElement.textContent = `${ temperature.toFixed(1) }°C`;
-//       const weatherCondition = data.weather[ 0 ].main;
-
-//       showClothes(temperature, weatherCondition);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   } else {
-
-//     // fetch weather information
-//     fetch(weatherUrl)
-//       .then(response => response.json())
-//       .then(data => {
-//         if (data.cod === 429) {
-//           // If the API key is invalid, show an error message
-//           alert("api key exceeding limit, please wait for 10 minutes");
-//         } else if (data.cod === 401) {
-//           // If the API key is invalid, show an error message
-//           alert("api key is invalid");
-//         } else if (data.cod === 404) {
-//           // If the city is not found, show an error message
-//           alert("city not found, Make sure it is spelled correctly, alternativly we might not have data for that city yet");
-//         }
-//         console.log(data.weather[ 0 ].icon)
-//         cityName.textContent = data.name;
-
-//         //add cityName to searchHistory
-//         if (!searchHistory.includes(cityName.textContent) && cityInput.value !== "") { searchHistory.push(cityName.textContent); }
-//         //limit search items to 10 
-//         if (searchHistory.length > MAX_ITEMS) {
-//           searchHistory = searchHistory.slice(-MAX_ITEMS);
-//         }
-//         //store search items in localStorage for data persistence
-//         localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-//         try {
-//           weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
-//           condition.textContent = data.weather[ 0 ].main;
-//           details.textContent = data.weather[ 0 ].description;
-//           sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
-//           sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
-//           windSpeed.textContent = data.wind.speed;
-
-//           // recommend clothes based on weather and temperature
-//           const temperature = data.main.temp;
-//           temperatureElement.textContent = `${ temperature.toFixed(1) }°C`;
-//           const weatherCondition = data.weather[ 0 ].main;
-//           condition.textContent = weatherCondition;
-//           showClothes(temperature, weatherCondition);
-
-//         } catch (err) {
-//           console.log(err);
-//         }
-//       })
-//     // .then(response => response.json(console.log(response)))
-//     // .then(forecastData => {
-
-//     //   const forecastContainer = document.getElementById("forecast-container");
-
-//     //   // clear previous forecast items
-//     //   forecastContainer.innerHTML = "";
-//     //   console.log(forecastData);
-//     //   for (let i = 0; i < 7; i++) {
-//     //     const forecast = forecastData.daily[ i ];
-
-//     //     // create forecast item element
-//     //     const forecastItem = document.createElement("div");
-//     //     forecastItem.classList.add("forecast-item");
-
-//     //     // create and add icon element
-//     //     const icon = document.createElement("img");
-//     //     icon.classList.add("forecast-icon");
-//     //     try {
-//     //       // code that may throw an error
-//     //       icon.src = `https://api.openweathermap.org/img/w/${ forecast.weather[ 0 ].icon }.png`;
-//     //     } catch (err) {
-//     //       // code that handles the error
-//     //       console.log(err);
-//     //     }
-
-//     //     forecastItem.appendChild(icon);
-
-//     //     // create and add day of week element
-//     //     const dayOfWeek = document.createElement("div");
-//     //     dayOfWeek.classList.add("forecast-day-of-week");
-//     //     dayOfWeek.textContent = new Date(forecast.dt * 1000).toLocaleDateString(undefined, { weekday: 'short' });
-//     //     forecastItem.appendChild(dayOfWeek);
-
-//     //     // create and add temperature range element
-//     //     const tempRange = document.createElement("div");
-//     //     tempRange.classList.add("forecast-temp-range");
-//     //     tempRange.textContent = `${ forecast.temp.min.toFixed(1) }°C / ${ forecast.temp.max.toFixed(1) }°C`;
-//     //     forecastItem.appendChild(tempRange);
-
-//     //     // append the forecast item to the container element
-//     //     forecastContainer.appendChild(forecastItem);
-//     //   }
-//     // })
-//   }
-
-// }
 
 function showClothes(temperature, weatherCondition) {
   recommendedClothes = "";
@@ -487,9 +304,9 @@ function topSelection() {
   clothingOptions.innerHTML = "";
   if (recommendedClothes.includes("shirt")) {
     clothingOptions.innerHTML += `<img id="shirt-image1" src="../Images/tops/shirts/shirtNoColor.png" alt="Shirt" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="shirt-image2" src="../Images/tops/shirts/shirtNoColor.png" alt="Shirt" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="shirt-image3" src="../Images/tops/shirts/shirtNoColor.png" alt="Shirt" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="shirt-image4" src="../Images/tops/shirts/shirtNoColor.png" alt="Shirt" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="shirt-image2" src="../Images/tops/shirts/BlouseNoColor.png" alt="Shirt" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="shirt-image3" src="../Images/tops/shirts/tshirtNoColor.png" alt="Shirt" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="shirt-image4" src="../Images/tops/shirts/sweaterNoColor.png" alt="Shirt" style="z-index: 1">`;
   } else if (recommendedClothes.includes("jacket")) {
     clothingOptions.innerHTML += `<img id="jacket-image1" src="../Images/tops/Jacket/coatLeather.png" alt="Jacket" style="z-index: 1">`;
     clothingOptions.innerHTML += `<img id="jacket-image2" src="../Images/tops/Jacket/hoodieBlue.png" alt="Jacket" style="z-index: 1">`;
