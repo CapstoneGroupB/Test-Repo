@@ -1,4 +1,4 @@
-# Project Title
+# Weather Wardrobe
 
 This project is a web-based weather application that displays real-time weather information and recommends clothing based on the weather forecast.
 
