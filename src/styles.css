@@ -13,9 +13,17 @@
 h1{
   font-family: 'fontRedHands';
   font-size: 50px;
-  color: #FBB829;
+  color: #090322;
   text-shadow: 1px 1px 1px #ccc;
 }
+
+h2{
+  font-family: 'fontRedHands';
+  font-size: 25px;
+  color: #0a0324;
+  text-shadow: 1px 1px 1px #ccc;
+}
+
 *:not(h1) {
   font-family: 'fontDarkSide';
   color: #2a42c9;
@@ -208,3 +216,19 @@ input:checked + .slider:before {
   border: none;
   cursor: pointer;
 }
+
+.rounded-image-icon{
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  padding-bottom: 10px;
+}
+
+.header-title {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+  padding-bottom: 10px;
+}
+
