@@ -1,3 +1,27 @@
+@font-face {
+  font-family: 'fontDarkSide';
+  src: url('..//Fonts//KGDarkSide.ttf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'fontRedHands';
+  src: url('..//Fonts//KGRedHandsOutline.ttf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+h1{
+  font-family: 'fontRedHands';
+  font-size: 50px;
+  color: #FBB829;
+  text-shadow: 1px 1px 1px #ccc;
+}
+*:not(h1) {
+  font-family: 'fontDarkSide';
+  color: #2a42c9;
+  text-shadow: 1px 1px 1px #ccc;
+}
+
 #forecast-container {
   float        : right;
   display        : flex;
@@ -62,15 +86,10 @@
 }
 
 body {
-  background           : linear-gradient(to bottom right, #5B92E5, #FFFFFF, #FBB829);
+  background           : linear-gradient(to bottom right, #5B92E5, #bcdcf6, #FBB829);
   background-attachment: fixed;
   font-weight          : bold;
   color                : #2a42c9;
-}
-
-header {
-  font-size  : 36px;
-  text-shadow: 1px 1px 1px #ccc;
 }
 
 button {

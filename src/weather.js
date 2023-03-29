@@ -84,11 +84,11 @@ const addCityToList = (city) => {
   const li = document.createElement("li");
   const button = document.createElement("button");
 
-  button.textContent = `${name}, ${country} ${Math.round(city.main.temp - 273.15)}°C (${lat}, ${lon})`;
+  button.textContent = `${ name }, ${ country } ${ Math.round(city.main.temp - 273.15) }°C (${ lat }, ${ lon })`;
   button.addEventListener("click", () => {
     fetchWeatherData(city.id)
       .then((data) => {
-        getWeather(data[0]);
+        getWeather(data[ 0 ]);
       })
   });
   li.appendChild(button);
