@@ -53,11 +53,11 @@ const notFound = document.getElementById("not-found");
 // Fetch weather data from OpenWeatherMap API
 const fetchWeatherData = async (cityId) => {
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${API_KEY}`
+    `https://api.openweathermap.org/data/2.5/weather?id=${ cityId }&appid=${ API_KEY }`
   );
   if (response.ok) {
     const data = await response.json();
-    return [data];
+    return [ data ];
   } else {
     throw new Error("City not found");
   }
@@ -65,7 +65,7 @@ const fetchWeatherData = async (cityId) => {
 
 const fetchCityId = async (cityName) => {
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/find?q=${cityName}&appid=${API_KEY}`
+    `https://api.openweathermap.org/data/2.5/find?q=${ cityName }&appid=${ API_KEY }`
   );
   if (response.ok) {
     const data = await response.json();
@@ -82,15 +82,20 @@ const fetchCityId = async (cityName) => {
 const addCityToList = (city) => {
   const { name, sys: { country }, coord: { lat, lon } } = city;
   const li = document.createElement("li");
-  li.textContent = `${name}, ${country} ${Math.round(city.main.temp - 273.15)}°C (${lat}, ${lon})`;
-  li.addEventListener("click", () => {
+  const button = document.createElement("button");
+
+  button.textContent = `${name}, ${country} ${Math.round(city.main.temp - 273.15)}°C (${lat}, ${lon})`;
+  button.addEventListener("click", () => {
     fetchWeatherData(city.id)
       .then((data) => {
         getWeather(data[0]);
       })
   });
+  li.appendChild(button);
   cityList.appendChild(li);
 };
+
+
 
 // Clear the list
 const clearCityList = () => {
@@ -100,6 +105,7 @@ const clearCityList = () => {
 // Show the "Not found" message
 const showNotFound = () => {
   notFound.style.display = "block";
+  alert("City not found, make sure you spelled the city name correctly, alternativly, that city has not been added to the api.");
 };
 
 // Hide the "Not found" message
@@ -144,9 +150,9 @@ searchInput.addEventListener("keypress", (event) => {
 
 function getWeather(data) {
   cityName.textContent = data.name;
-  weatherIcon.src = `https://api.openweathermap.org/img/w/${data.weather[0].icon}.png`;
-  condition.textContent = data.weather[0].main;
-  details.textContent = data.weather[0].description;
+  weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
+  condition.textContent = data.weather[ 0 ].main;
+  details.textContent = data.weather[ 0 ].description;
   sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
   sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
   windSpeed.textContent = data.wind.speed;
@@ -269,7 +275,7 @@ CityName1.addEventListener('DOMSubtreeModified', showWeatherInfo);
 //     }
 //     console.log(data);
 //     try {
-      
+
 
 //       // weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
 //       console.log(data.weather[ 0 ].main);
@@ -327,7 +333,7 @@ CityName1.addEventListener('DOMSubtreeModified', showWeatherInfo);
 //           sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
 //           sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
 //           windSpeed.textContent = data.wind.speed;
- 
+
 //           // recommend clothes based on weather and temperature
 //           const temperature = data.main.temp;
 //           temperatureElement.textContent = `${ temperature.toFixed(1) }°C`;
