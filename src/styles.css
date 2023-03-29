@@ -50,7 +50,7 @@ h1{
 #clothes-images {
   float         : right;
   align-items: center;
-  margin-top: -30%;
+  margin-top: -20%;
   display       : flex;
 }
 
@@ -74,7 +74,6 @@ h1{
   /* set the height of the container div */
   margin-right: 1px;
 }
-
 
 #clothes-images img {
   width : 85%;
