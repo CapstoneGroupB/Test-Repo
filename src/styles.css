@@ -1,12 +1,18 @@
 @font-face {
   font-family: 'fontDarkSide';
-  src: url('..//Fonts//KGDarkSide.ttf') format('woff2');
+  src: url('..//Fonts//KGDarkSide.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'fontRedHands';
-  src: url('..//Fonts//KGRedHandsOutline.ttf') format('woff2');
+  src: url('..//Fonts//KGRedHandsOutline.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'fontFunk';
+  src: url('..//Fonts//Funk.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
@@ -17,7 +23,8 @@ h1{
   text-shadow: 1px 1px 1px #ccc;
 }
 *:not(h1) {
-  font-family: 'fontDarkSide';
+  font-family: 'fontFunk';
+  font-size: 20px;
   color: #2a42c9;
   text-shadow: 1px 1px 1px #ccc;
 }
