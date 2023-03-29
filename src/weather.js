@@ -24,27 +24,6 @@ let recommendedClothes = "";
 let clothingVisible = true;
 let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 const MAX_ITEMS = 10;
-
-// // add event listener for click event
-// getWeatherBtn.addEventListener("click", getWeather);
-
-// // add event listener for keypress event
-// cityInput.addEventListener("keypress", function (event) {
-//   if (event.key === "Enter") {
-//     if (cityInput.value === "") {
-//       alert("Please enter a city name");
-//       return;
-//     }
-//     getWeather();
-//   }
-// });
-
-
-
-
-
-// 29-Mar test code start
-
 const searchInput = document.getElementById("search-input");
 const searchButton = document.getElementById("search-button");
 const cityList = document.getElementById("city-lists");
@@ -53,7 +32,7 @@ const notFound = document.getElementById("not-found");
 // Fetch weather data from OpenWeatherMap API
 const fetchWeatherData = async (cityId) => {
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?id=${ cityId }&appid=${ API_KEY }`
+    `https://api.openweathermap.org/data/2.5/weather?id=${ cityId }&appid=${ API_KEY }&units=metric`
   );
   if (response.ok) {
     const data = await response.json();
@@ -65,7 +44,7 @@ const fetchWeatherData = async (cityId) => {
 
 const fetchCityId = async (cityName) => {
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/find?q=${ cityName }&appid=${ API_KEY }`
+    `https://api.openweathermap.org/data/2.5/find?q=${ cityName }&appid=${ API_KEY }&units=metric`
   );
   if (response.ok) {
     const data = await response.json();
@@ -84,7 +63,7 @@ const addCityToList = (city) => {
   const li = document.createElement("li");
   const button = document.createElement("button");
 
-  button.textContent = `${ name }, ${ country } ${ Math.round(city.main.temp - 273.15) }°C (${ lat }, ${ lon })`;
+  button.textContent = `${ name }, ${ country } ${ city.main.temp }°C (${ lat }, ${ lon })`;
   button.addEventListener("click", () => {
     fetchWeatherData(city.id)
       .then((data) => {
@@ -94,8 +73,6 @@ const addCityToList = (city) => {
   li.appendChild(button);
   cityList.appendChild(li);
 };
-
-
 
 // Clear the list
 const clearCityList = () => {
@@ -169,7 +146,7 @@ function getWeather(data) {
 
   // recommend clothes based on weather and temperature
   const temperature = data.main.temp;
-  temperatureElement.textContent = `${ Math.round(data.main.temp - 273.15) }°C`;
+  temperatureElement.textContent = `${ data.main.temp }°C`;
   const weatherCondition = data.weather[0].main;
 
   showClothes(temperature, weatherCondition);
@@ -246,14 +223,6 @@ function hideClothing() {
   }
 }
 
-// 29-Mar test code end
-
-
-
-
-
-
-
 // hide or show weather info
 const weatherInfoContainer = document.querySelector('.weather-info-container');
 const CityName1 = document.querySelector('#city-name');
@@ -271,9 +240,6 @@ function showWeatherInfo() {
 
 // Listen for changes to the city name input
 CityName1.addEventListener('DOMSubtreeModified', showWeatherInfo);
-
-
-
 
 function showClothes(temperature, weatherCondition) {
   recommendedClothes = "";
@@ -377,59 +343,80 @@ function populateSearchHistoryDropdown() {
   });
 }
 
-
-
 function topSelection() {
   //populate 4 images of tops for the user to look at
   clothingOptions.innerHTML = "";
   if (recommendedClothes.includes("shirt")) {
-    clothingOptions.innerHTML += `<img id="shirt-image1" src="../Images/tops/shirts/shirtNoColor.png" alt="Shirt" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="shirt-image2" src="../Images/tops/shirts/BlouseNoColor.png" alt="Shirt" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="shirt-image3" src="../Images/tops/shirts/tshirtNoColor.png" alt="Shirt" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="shirt-image4" src="../Images/tops/shirts/sweaterNoColor.png" alt="Shirt" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="shirt-image1" src="../Images/tops/shirts/shirtNoColor.png" alt="Shirt" style="z-index: 1" onclick="changeTopImage(this, 'shirt-image1')">`;
+    clothingOptions.innerHTML += `<img id="shirt-image2" src="../Images/tops/shirts/BlouseNoColor.png" alt="Shirt" style="z-index: 1" onclick="changeTopImage(this, 'shirt-image2')">`;
+    clothingOptions.innerHTML += `<img id="shirt-image3" src="../Images/tops/shirts/tshirtNoColor.png" alt="Shirt" style="z-index: 1" onclick="changeTopImage(this, 'shirt-image3')">`;
+    clothingOptions.innerHTML += `<img id="shirt-image4" src="../Images/tops/shirts/sweaterNoColor.png" alt="Shirt" style="z-index: 1" onclick="changeTopImage(this, 'shirt-image4')">`;
   } else if (recommendedClothes.includes("jacket")) {
-    clothingOptions.innerHTML += `<img id="jacket-image1" src="../Images/tops/Jacket/coatLeather.png" alt="Jacket" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="jacket-image2" src="../Images/tops/Jacket/hoodieBlue.png" alt="Jacket" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="jacket-image3" src="../Images/tops/Jacket/jacketRedPuffer.png" alt="Jacket" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="jacket-image4" src="../Images/tops/Jacket/jacket.png" alt="Jacket" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="jacket-image1" src="../Images/tops/Jacket/coatLeather.png" alt="Jacket" style="z-index: 1" onclick="changeTopImage(this, 'jacket-image1')">`;
+    clothingOptions.innerHTML += `<img id="jacket-image2" src="../Images/tops/Jacket/hoodieBlue.png" alt="Jacket" style="z-index: 1" onclick="changeTopImage(this, 'jacket-image2')">`;
+    clothingOptions.innerHTML += `<img id="jacket-image3" src="../Images/tops/Jacket/jacketRedPuffer.png" alt="Jacket" style="z-index: 1" onclick="changeTopImage(this, 'jacket-image3')">`;
+    clothingOptions.innerHTML += `<img id="jacket-image4" src="../Images/tops/Jacket/jacket.png" alt="Jacket" style="z-index: 1" onclick="changeTopImage(this, 'jacket-image4')">`;
   }
 }
+
 function bottomSelection() {
   //populate 4 images of bottoms for the user to look at
   clothingOptions.innerHTML = "";
   if (recommendedClothes.includes("shorts")) {
-    clothingOptions.innerHTML += `<img id="shorts-image1" src="../Images/bottoms/shortsNoColor.png" alt="Shorts" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="shorts-image1" src="../Images/bottoms/skirtNoColor.png" alt="Shorts" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="shorts-image1" src="../Images/bottoms/denim-shortsColor.png" alt="Shorts" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="shorts-image1" src="../Images/bottoms/shortsNoColor.png" alt="Shorts" style="z-index: 1" onclick="changeBottomImage(this, 'shorts-image1')">`;
+    clothingOptions.innerHTML += `<img id="shorts-image2" src="../Images/bottoms/skirtNoColor.png" alt="Shorts" style="z-index: 1" onclick="changeBottomImage(this, 'shorts-image2')">`;
+    clothingOptions.innerHTML += `<img id="shorts-image3" src="../Images/bottoms/denim-shortsColor.png" alt="Shorts" style="z-index: 1" onclick="changeBottomImage(this, 'shorts-image3')">`;
   } else if (recommendedClothes.includes("pants")) {
-    clothingOptions.innerHTML += `<img id="pants-image1" src="../Images/bottoms/jeansRipped.png" alt="Pants" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="pants-image1" src="../Images/bottoms/trousersNoColor.png" alt="Pants" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="pants-image1" src="../Images/bottoms/trousersOrange.png" alt="Pants" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="pants-image1" src="../Images/bottoms/jeansRipped.png" alt="Pants" style="z-index: 1" onclick="changeBottomImage(this, 'pants-image3')">`;
+    clothingOptions.innerHTML += `<img id="pants-image2" src="../Images/bottoms/trousersNoColor.png" alt="Pants" style="z-index: 1" onclick="changeBottomImage(this, 'pants-image3')">`;
+    clothingOptions.innerHTML += `<img id="pants-image3" src="../Images/bottoms/trousersOrange.png" alt="Pants" style="z-index: 1" onclick="changeBottomImage(this, 'pants-image3')">`;
   }
 }
+
 function footSelection() {
   //populate 4 images of footwear for the user to look at
   clothingOptions.innerHTML = "";
   if (recommendedClothes.includes("boots")) {
-    clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/boots.png" alt="Footwear" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/heavy-boots.png" alt="Footwear" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/rain-boots.png" alt="Footwear" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="boots-image1" src="../Images/footwear/boots.png" alt="Footwear" style="z-index: 1" onclick="changeFootImage(this, 'boots-image3')">`;
+    clothingOptions.innerHTML += `<img id="boots-image2" src="../Images/footwear/heavy-boots.png" alt="Footwear" style="z-index: 1" onclick="changeFootImage(this, 'boots-image2')">`;
+    clothingOptions.innerHTML += `<img id="boots-image3" src="../Images/footwear/rain-boots.png" alt="Footwear" style="z-index: 1" onclick="changeFootImage(this, 'boots-image3')">`;
   } else if (recommendedClothes.includes("sneakers")) {
-    clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/shoesColor.png" alt="Footwear" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/jordans.png" alt="Footwear" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/jordans2.png" alt="Footwear" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="sneakers-image1" src="../Images/footwear/shoesColor.png" alt="Footwear" style="z-index: 1" onclick="changeFootImage(this, 'sneakers-image1')">`;
+    clothingOptions.innerHTML += `<img id="sneakers-image2" src="../Images/footwear/jordans.png" alt="Footwear" style="z-index: 1" onclick="changeFootImage(this, 'sneakers-image2')">`;
+    clothingOptions.innerHTML += `<img id="sneakers-image3" src="../Images/footwear/jordans2.png" alt="Footwear" style="z-index: 1" onclick="changeFootImage(this, 'sneakers-image3')">`;
   } else if (recommendedClothes.includes("sandals")) {
-    clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/shoesColor.png" alt="Footwear" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/jordans.png" alt="Footwear" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="footwear-image1" src="../Images/footwear/jordans2.png" alt="Footwear" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="sandals-image1" src="../Images/footwear/shoesColor.png" alt="Footwear" style="z-index: 1" onclick="changeFootImage(this, 'sandals-image1')">`;
+    clothingOptions.innerHTML += `<img id="sandals-image2" src="../Images/footwear/jordans.png" alt="Footwear" style="z-index: 1" onclick="changeFootImage(this, 'sandals-image2')">`;
+    clothingOptions.innerHTML += `<img id="sandals-image3" src="../Images/footwear/jordans2.png" alt="Footwear" style="z-index: 1" onclick="changeFootImage(this, 'sandals-image3')">`;
   }
 }
+
 function accSelection() {
   //populate 4 images of accessories for the user to look at
   clothingOptions.innerHTML = "";
   if (recommendedClothes.includes("umbrella")) {
-    clothingOptions.innerHTML += `<img id="acc-image1" src="../Images/accessories/umbrella.png" alt="Umbrella" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="acc-image1" src="../Images/accessories/umbrella2.png" alt="Umbrella" style="z-index: 1">`;
-    clothingOptions.innerHTML += `<img id="acc-image1" src="../Images/accessories/umbrella3.png" alt="Umbrella" style="z-index: 1">`;
+    clothingOptions.innerHTML += `<img id="umbrella-image1" src="../Images/accessories/umbrella.png" alt="Umbrella" style="z-index: 1" onclick="changeAccImage(this, 'umbrella-image1')">`;
+    clothingOptions.innerHTML += `<img id="umbrella-image1" src="../Images/accessories/umbrella2.png" alt="Umbrella" style="z-index: 1" onclick="changeAccImage(this, 'umbrella-image2')">`;
+    clothingOptions.innerHTML += `<img id="umbrella-image1" src="../Images/accessories/umbrella3.png" alt="Umbrella" style="z-index: 1" onclick="changeAccImage(this, 'umbrella-image3')">`;
   }
+}
+
+function changeTopImage(img, id) {
+  const topsElement = document.getElementById("tops");
+  topsElement.innerHTML = `<img id="${id}" src="${img.src}">`;
+}
+
+function changeBottomImage(img, id) {
+  const bottomsElement = document.getElementById("bottoms");
+  bottomsElement.innerHTML = `<img id="${id}" src="${img.src}">`;
+}
+
+function changeFootImage(img, id) {
+  const footwearElement = document.getElementById("footwear");
+  footwearElement.innerHTML = `<img id="${id}" src="${img.src}">`;
+}
+
+function changeAccImage(imimg, idg) {
+  const accessoriesElement = document.getElementById("accessories");
+  accessoriesElement.innerHTML = `<img id="${id}" src="${img.src}">`;
 }

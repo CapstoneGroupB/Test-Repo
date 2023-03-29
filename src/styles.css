@@ -144,9 +144,6 @@ button:hover{
   transform: scale(1.07);
 }
 
-
-
-
 /* start toggle-btn */
 .toggle-btn {
   position: relative;
@@ -256,4 +253,3 @@ input:checked + .slider:before {
 #search-input:focus{
   background-color: lightblue;
 }
-
