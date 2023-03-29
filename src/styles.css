@@ -195,3 +195,16 @@ input:checked + .slider:before {
   color: red;
   font-weight: bold;
 }
+
+.list-item {
+  position: relative;
+  display: block;
+}
+
+.delete-button {
+  position: absolute;
+  right: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
