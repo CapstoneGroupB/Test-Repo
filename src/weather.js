@@ -20,14 +20,38 @@ const forecastList = document.getElementById("forecast-list");
 const temperatureElement = document.getElementById("temperature");
 const list = document.getElementById("search-list")
 const clothingOptions = document.getElementById("options");
+const weatherContainer = document.querySelector(".weather-info-container")
 let recommendedClothes = "";
 let clothingVisible = true;
 let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 const MAX_ITEMS = 10;
+
+
+// // add event listener for click event
+// getWeatherBtn.addEventListener("click", getWeather);
+
+// // add event listener for keypress event
+// cityInput.addEventListener("keypress", function (event) {
+//   if (event.key === "Enter") {
+//     if (cityInput.value === "") {
+//       alert("Please enter a city name");
+//       return;
+//     }
+//     getWeather();
+//   }
+// });
+
+
+
+// 29-Mar test code start
+
 const searchInput = document.getElementById("search-input");
 const searchButton = document.getElementById("search-button");
 const cityList = document.getElementById("city-lists");
 const notFound = document.getElementById("not-found");
+//display none when the window loads
+  weatherContainer.style.display = "none"
+
 
 // Fetch weather data from OpenWeatherMap API
 const fetchWeatherData = async (cityId) => {
@@ -48,6 +72,7 @@ const fetchCityId = async (cityName) => {
   );
   if (response.ok) {
     const data = await response.json();
+    console.log(data);
     if (data.list.length > 0) {
       return data.list.map((city) => city.id);
     } else {
@@ -57,6 +82,7 @@ const fetchCityId = async (cityName) => {
     throw new Error("City not found");
   }
 };
+
 
 const addCityToList = (city) => {
   const { name, sys: { country }, coord: { lat, lon } } = city;
@@ -126,7 +152,8 @@ searchInput.addEventListener("keypress", (event) => {
 });
 
 function getWeather(data) {
-  cityName.textContent = data.name;
+  weatherContainer.style.display = "block"
+  cityName.textContent = data.name +", " + data.sys.country;
   
   // add cityName to searchHistory
   if (!searchHistory.includes(cityName.textContent) && searchInput.value !== "") { searchHistory.push(cityName.textContent); }
@@ -300,6 +327,9 @@ function showClothes(temperature, weatherCondition) {
   recommendedClothesElement.textContent = recommendedClothes;
 }
 
+window.addEventListener("resize", function() {
+  list.style.display = "none";
+});
 
 function hideSearchHistoryDropdown() {
   list.style.display = "none";
@@ -311,6 +341,7 @@ function showSearchHistoryDropdown() {
 searchInput.onfocus = () => {
   populateSearchHistoryDropdown();
   showSearchHistoryDropdown();
+  
 };
 
 searchInput.onblur = () => {
