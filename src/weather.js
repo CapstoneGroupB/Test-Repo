@@ -27,31 +27,13 @@ let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 const MAX_ITEMS = 10;
 
 
-// // add event listener for click event
-// getWeatherBtn.addEventListener("click", getWeather);
-
-// // add event listener for keypress event
-// cityInput.addEventListener("keypress", function (event) {
-//   if (event.key === "Enter") {
-//     if (cityInput.value === "") {
-//       alert("Please enter a city name");
-//       return;
-//     }
-//     getWeather();
-//   }
-// });
-
-
-
 // 29-Mar test code start
-
 const searchInput = document.getElementById("search-input");
 const searchButton = document.getElementById("search-button");
 const cityList = document.getElementById("city-lists");
 const notFound = document.getElementById("not-found");
 //display none when the window loads
-  weatherContainer.style.display = "none"
-
+weatherContainer.style.display = "none"
 
 // Fetch weather data from OpenWeatherMap API
 const fetchWeatherData = async (cityId) => {
@@ -153,8 +135,8 @@ searchInput.addEventListener("keypress", (event) => {
 
 function getWeather(data) {
   weatherContainer.style.display = "block"
-  cityName.textContent = data.name +", " + data.sys.country;
-  
+  cityName.textContent = data.name + ", " + data.sys.country;
+
   // add cityName to searchHistory
   if (!searchHistory.includes(cityName.textContent) && searchInput.value !== "") { searchHistory.push(cityName.textContent); }
   // limit search items to MAX_ITEMS
@@ -164,9 +146,9 @@ function getWeather(data) {
   // store search items in localStorage for data persistence
   localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
 
-  weatherIcon.src = `https://api.openweathermap.org/img/w/${data.weather[0].icon}.png`;
-  condition.textContent = data.weather[0].main;
-  details.textContent = data.weather[0].description;
+  weatherIcon.src = `https://api.openweathermap.org/img/w/${ data.weather[ 0 ].icon }.png`;
+  condition.textContent = "Overall: " + data.weather[ 0 ].main;
+  details.textContent = "details: " + data.weather[ 0 ].description;
   sunrise.textContent = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
   sunset.textContent = new Date(data.sys.sunset * 1000).toLocaleTimeString();
   windSpeed.textContent = data.wind.speed;
@@ -174,7 +156,7 @@ function getWeather(data) {
   // recommend clothes based on weather and temperature
   const temperature = data.main.temp;
   temperatureElement.textContent = `${ data.main.temp }°C`;
-  const weatherCondition = data.weather[0].main;
+  const weatherCondition = data.weather[ 0 ].main;
 
   showClothes(temperature, weatherCondition);
   hideClothing();
@@ -182,7 +164,7 @@ function getWeather(data) {
   // get forecast information
   const lat = data.coord.lat;
   const lon = data.coord.lon;
-  const forecastUrl = `${FORECAST_URL}?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&appid=${API_KEY}&units=metric`;
+  const forecastUrl = `${ FORECAST_URL }?lat=${ lat }&lon=${ lon }&exclude=current,minutely,hourly,alerts&appid=${ API_KEY }&units=metric`;
 
   fetch(forecastUrl)
     .then(response => response.json())
@@ -194,7 +176,7 @@ function getWeather(data) {
       forecastContainer.innerHTML = "";
 
       for (let i = 0; i < 7; i++) {
-        const forecast = forecastData.daily[i];
+        const forecast = forecastData.daily[ i ];
 
         // create forecast item element
         const forecastItem = document.createElement("div");
@@ -205,7 +187,7 @@ function getWeather(data) {
         icon.classList.add("forecast-icon");
         try {
           // code that may throw an error
-          icon.src = `https://api.openweathermap.org/img/w/${forecast.weather[0].icon}.png`;
+          icon.src = `https://api.openweathermap.org/img/w/${ forecast.weather[ 0 ].icon }.png`;
         } catch (err) {
           // code that handles the error
           console.log(err);
@@ -222,7 +204,7 @@ function getWeather(data) {
         // create and add temperature range element
         const tempRange = document.createElement("div");
         tempRange.classList.add("forecast-temp-range");
-        tempRange.textContent = `${forecast.temp.min.toFixed(1)}°C / ${forecast.temp.max.toFixed(1)}°C`;
+        tempRange.textContent = `${ forecast.temp.min.toFixed(1) }°C / ${ forecast.temp.max.toFixed(1) }°C`;
         forecastItem.appendChild(tempRange);
 
         // append the forecast item to the container element
@@ -327,7 +309,7 @@ function showClothes(temperature, weatherCondition) {
   recommendedClothesElement.textContent = recommendedClothes;
 }
 
-window.addEventListener("resize", function() {
+window.addEventListener("resize", function () {
   list.style.display = "none";
 });
 
@@ -341,7 +323,7 @@ function showSearchHistoryDropdown() {
 searchInput.onfocus = () => {
   populateSearchHistoryDropdown();
   showSearchHistoryDropdown();
-  
+
 };
 
 searchInput.onblur = () => {
@@ -434,20 +416,20 @@ function accSelection() {
 
 function changeTopImage(img, id) {
   const topsElement = document.getElementById("tops");
-  topsElement.innerHTML = `<img id="${id}" src="${img.src}">`;
+  topsElement.innerHTML = `<img id="${ id }" src="${ img.src }">`;
 }
 
 function changeBottomImage(img, id) {
   const bottomsElement = document.getElementById("bottoms");
-  bottomsElement.innerHTML = `<img id="${id}" src="${img.src}">`;
+  bottomsElement.innerHTML = `<img id="${ id }" src="${ img.src }">`;
 }
 
 function changeFootImage(img, id) {
   const footwearElement = document.getElementById("footwear");
-  footwearElement.innerHTML = `<img id="${id}" src="${img.src}">`;
+  footwearElement.innerHTML = `<img id="${ id }" src="${ img.src }">`;
 }
 
 function changeAccImage(imimg, idg) {
   const accessoriesElement = document.getElementById("accessories");
-  accessoriesElement.innerHTML = `<img id="${id}" src="${img.src}">`;
+  accessoriesElement.innerHTML = `<img id="${ id }" src="${ img.src }">`;
 }
