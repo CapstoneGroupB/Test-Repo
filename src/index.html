@@ -10,12 +10,12 @@
 </head>
 
 <body>
-  <header>
+  <header class="row">
     <img src=/Images/weatherWardrobeIcon.png alt="Image icon" class="rounded-image-icon"
     style="display: inline-block;" width="70" height="70">
     <h1 class="header-title">Weather Wardrobe </h1>
   </header>
-  <main>
+  <main class="row">
 
     <!-- 29-Mar test code start -->
     <div id="search-form">
@@ -47,39 +47,61 @@
       <p> Click on the images to see more options </p> -->
 
       <!-- 29-Mar test code start -->
-      <h2>Show/Hide recommended clothes</h2>
-      <label class="toggle-btn"><input type="checkbox" onclick="hideClothing()" id="clothing-toggle">
-        <span class="slider round"></span>
-      </label>
+   
       <!-- 29-Mar test code end -->
-
-      <h2 id="city-name"></h2>
-      <div id="forecast-container">
-        <ul id="forecast-list"></ul>
-      </div>
       <div class="weather-details">
-        <img id="weather-icon" alt="Weather Icon">
-        <p id="condition"></p>
-        <p id="details"></p>
-        <p id="temperature"></p>
-        <p>Sunrise: <span id="sunrise"></span></p>
-        <p>Sunset: <span id="sunset"></span></p>
-        <p>Wind Speed: <span id="wind-speed"></span></p>
-        <p>Recommended Clothes: <span id="recommended-clothes"></span></p>
-
-        <div id="clothes-images">
-          
-          <div id="tops" onclick="topSelection()"></div>
-          <div id="bottoms" onclick="bottomSelection()"></div>
-          <div id="footwear" onclick="footSelection()"></div>
-          <div id="accessories" onclick="accSelection()"></div>
+        <div class="temp-city">
+          <p id="temperature"></p>
+          <h2 id="city-name"></h2>
+        </div>
+        <div class="weather-condition">
+          <img id="weather-icon" alt="Weather Icon">
+          <p id="condition"></p>
+          <p id="details"></p>
+        </div> 
+        <div class="other-info">
+          <p>Sunrise: <span id="sunrise"></span></p>
+          <p>Sunset: <span id="sunset"></span></p>
+          <p>Wind Speed: <span id="wind-speed"></span></p>
         </div>
       </div>
-    </div>
-    <div id="options">
+
+       <div class="clothes-section">
+
+        <div class="button-section">
+          <h2>Show/Hide recommended clothes</h2>
+          <label class="toggle-btn"><input type="checkbox" onclick="hideClothing()" id="clothing-toggle">
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div class="cloth-specific">
+          <p>Recommended Clothes: <span id="recommended-clothes"></span></p>
+          <div id="clothes-images">
+          <div id="tops" onclick="topSelection()"></div>
+          <div id="bottoms" onclick="bottomSelection()" ></div>
+          <div id="footwear" onclick="footSelection()"></div>
+          <div id="accessories" onclick="accSelection()" ></div>
+        </div>
+        </div>
+        <div id="options">
+        </div>
+      </div>
+      
+     
+
+    <div id="forecast-container">
+        <ul id="forecast-list"></ul>
+      </div>
+
+    
   </main>
 
   <script src="weather.js"></script>
 </body>
 
 </html>
+
+<!-- onclick="topSelection()"
+onclick="bottomSelection()"
+onclick="footSelection()"
+onclick="accSelection()" -->
