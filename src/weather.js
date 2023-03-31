@@ -3,9 +3,10 @@
 const API_KEY = "0fb98056d14c0b3b443c610b4ebe30e9";
 // const API_KEY = "b954dc65c5ccd233e352b2ff1ba92d2c";
 
+//Urls
 const WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather";
 const FORECAST_URL = "https://api.openweathermap.org/data/2.5/onecall";
-
+//Get the elements we need to target from the DOM
 const getWeatherBtn = document.getElementById("get-weather-btn");
 const cityListElement = document.getElementById('city-list');
 const cityInput = document.getElementById("city-input");
@@ -21,21 +22,20 @@ const temperatureElement = document.getElementById("temperature");
 const list = document.getElementById("search-list")
 const clothingOptions = document.getElementById("options");
 const weatherContainer = document.querySelector(".weather-info-container")
-let recommendedClothes = "";
-let clothingVisible = true;
-let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-const MAX_ITEMS = 10;
-
-
-// 29-Mar test code start
+//search history variables/Dom elements
 const searchInput = document.getElementById("search-input");
 const searchButton = document.getElementById("search-button");
 const cityList = document.getElementById("city-lists");
 const notFound = document.getElementById("not-found");
+let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+const MAX_ITEMS = 10;
 //display none when the window loads
 weatherContainer.style.display = "none"
+let recommendedClothes = "";
+let clothingVisible = true;
 
-// Fetch weather data from OpenWeatherMap API
+
+// Fetch weather data from OpenWeatherMap API (Han)
 const fetchWeatherData = async (cityId) => {
   const response = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?id=${ cityId }&appid=${ API_KEY }&units=metric`
@@ -47,7 +47,7 @@ const fetchWeatherData = async (cityId) => {
     throw new Error("City not found");
   }
 };
-
+//getting the information from the api to list the cities
 const fetchCityId = async (cityName) => {
   const response = await fetch(
     `https://api.openweathermap.org/data/2.5/find?q=${ cityName }&appid=${ API_KEY }&units=metric`
@@ -64,8 +64,7 @@ const fetchCityId = async (cityName) => {
     throw new Error("City not found");
   }
 };
-
-
+// Add city to the list of available cities for the user
 const addCityToList = (city) => {
   const { name, sys: { country }, coord: { lat, lon } } = city;
   const li = document.createElement("li");
@@ -98,7 +97,7 @@ const hideNotFound = () => {
   notFound.style.display = "none";
 };
 
-// Handle search button click event
+//Populate a list of available cities that match the city name
 searchButton.addEventListener("click", () => {
   const cityName = searchInput.value.trim();
   if (cityName) {
@@ -126,13 +125,14 @@ searchButton.addEventListener("click", () => {
   }
 });
 
-// Handle search input key press event
+//Make eventhandler for enter key
 searchInput.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     searchButton.click();
   }
 });
 
+// retrival and display of weather data, targeting parts of the DOM and json data to display the information
 function getWeather(data) {
   weatherContainer.style.display = "block"
   cityName.textContent = data.name + ", " + data.sys.country;
@@ -165,7 +165,7 @@ function getWeather(data) {
   const lat = data.coord.lat;
   const lon = data.coord.lon;
   const forecastUrl = `${ FORECAST_URL }?lat=${ lat }&lon=${ lon }&exclude=current,minutely,hourly,alerts&appid=${ API_KEY }&units=metric`;
-
+  //same idea as getWeather, but for the 7 day forecast
   fetch(forecastUrl)
     .then(response => response.json())
     .then(forecastData => {
@@ -215,7 +215,7 @@ function getWeather(data) {
       console.log(err);
     });
 }
-
+//allowing the user to toggle the visibility of the clothing images
 function hideClothing() {
   const toggleBtn = document.getElementById("clothing-toggle");
   const clothesImages = document.getElementById("clothes-images").querySelectorAll("img");
@@ -249,7 +249,7 @@ function showWeatherInfo() {
 
 // Listen for changes to the city name input
 CityName1.addEventListener('DOMSubtreeModified', showWeatherInfo);
-
+//the function that will show the reccomended clothing based on the weather and temperature
 function showClothes(temperature, weatherCondition) {
   recommendedClothes = "";
   // Select all images within the clothes-images div
@@ -257,7 +257,7 @@ function showClothes(temperature, weatherCondition) {
   const bottomsElement = document.getElementById("bottoms");
   const footwearElement = document.getElementById("footwear");
   const accessoriesElement = document.getElementById("accessories");
-
+  //clothing logic mainly based on temperature
   if (temperature > 20) {
     recommendedClothes = "shorts, t-shirt, and sandals.";
 
@@ -291,7 +291,7 @@ function showClothes(temperature, weatherCondition) {
 
     accessoriesElement.innerHTML = ``;
   }
-
+  //clothing logic based on weather condition
   if (weatherCondition === "Rain") {
     recommendedClothes += " with rainboots and an umbrella";
 
@@ -300,11 +300,13 @@ function showClothes(temperature, weatherCondition) {
     bottomsElement.innerHTML = `<img id="pants-image" src="../Images/bottoms/jeans.png" alt="Pants" style="z-index: 1">`;
 
     footwearElement.innerHTML = `<img id="rainboots-image" src="../Images/footwear/rain-boots.png" alt="Boots" style="z-index: 1">`;
+    if (weatherCondition === "Snow") {
 
-    accessoriesElement.innerHTML = `<img id="umbrella-image" src="../Images/accessories/umbrella.png" alt="Umbrella" style="z-index: 1">`;
-
+    } else {
+      accessoriesElement.innerHTML = `<img id="umbrella-image" src="../Images/accessories/umbrella.png" alt="Umbrella" style="z-index: 1">`;
+    }
   }
-
+  //making the clothing visible
   const recommendedClothesElement = document.getElementById("recommended-clothes");
   recommendedClothesElement.textContent = recommendedClothes;
 }
@@ -319,17 +321,16 @@ function hideSearchHistoryDropdown() {
 function showSearchHistoryDropdown() {
   list.style.display = "block";
 }
-
+//displaying the search history
 searchInput.onfocus = () => {
   populateSearchHistoryDropdown();
   showSearchHistoryDropdown();
-
 };
-
+//hiding the search history
 searchInput.onblur = () => {
   setTimeout(hideSearchHistoryDropdown, 200);
 };
-
+//function that shows the search history
 function populateSearchHistoryDropdown() {
   list.innerHTML = "";
   searchHistory.forEach((searchedItem) => {
@@ -355,7 +356,7 @@ function populateSearchHistoryDropdown() {
     list.appendChild(br);
   });
 }
-
+//the following 4 functions are for allowing the user to change the clothing choice
 function topSelection() {
   //populate 4 images of tops for the user to look at
   clothingOptions.innerHTML = "";
@@ -414,6 +415,7 @@ function accSelection() {
   }
 }
 
+//the following 4 functions change the image of the clothing item when the user clicks on a new image
 function changeTopImage(img, id) {
   const topsElement = document.getElementById("tops");
   topsElement.innerHTML = `<img id="${ id }" src="${ img.src }">`;
@@ -429,7 +431,7 @@ function changeFootImage(img, id) {
   footwearElement.innerHTML = `<img id="${ id }" src="${ img.src }">`;
 }
 
-function changeAccImage(imimg, idg) {
+function changeAccImage(img, id) {
   const accessoriesElement = document.getElementById("accessories");
   accessoriesElement.innerHTML = `<img id="${ id }" src="${ img.src }">`;
 }
