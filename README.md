@@ -21,7 +21,7 @@ To use this website, follow these steps:
 
 1. Enter your city in the search bar on the home page.
 2. Press the "Get Weather" button.
-3. The website will display the current weather conditions for your city, including temperature, humidity, wind speed, and UV index.
+3. The website will display the current weather conditions for your city, including temperature, and wind speed.
 4. Scroll down to see the 7-day weather forecast for your city, including high and low temperatures and chance of precipitation.
 5. Based on the weather forecast, the website will recommend clothing for you to wear each day of the week. The clothing recommendations will include both text descriptions and pictures to help you visualize what to wear. For example, if the weather is expected to be sunny and warm, the website might recommend shorts, a t-shirt, and sunglasses for that day.
 
